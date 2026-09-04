@@ -4,7 +4,9 @@
 Compares the label-to-number mappings recorded in each format's .aux file, for
 labels naming a numbered statement (ass:, def:, thm:, prop:, lem:, cor:, rem:,
 ex:). Reading the .aux rather than the rendered text means citations to other
-works cannot be mistaken for the paper's own statements.
+works cannot be mistaken for the paper's own statements. An .aux that defines
+the same statement label twice is rejected: the later record would otherwise
+overwrite the earlier one and could agree with the reference by accident.
 
 Usage: check_paper_formats.py <aux> [<aux> ...]
 """
@@ -17,13 +19,21 @@ NEWLABEL = re.compile(r"\\newlabel\{([^}]+)\}\{\{([^{}]*)\}")
 
 
 def numbering(path):
+    """Map statement label -> number, refusing an input that defines one twice."""
     text = Path(path).read_text(encoding="utf-8", errors="replace")
-    found = {}
+    found, seen = {}, {}
     for label, number in NEWLABEL.findall(text):
         if label.endswith("@cref") or ":" not in label:
             continue
         if label.split(":", 1)[0] in PREFIXES:
+            seen.setdefault(label, []).append(number)
             found[label] = number
+    repeated = {k: v for k, v in seen.items() if len(v) > 1}
+    if repeated:
+        print(f"FAIL {path}: statement label defined more than once")
+        for label, numbers in sorted(repeated.items()):
+            print(f"     {label}: {numbers}")
+        sys.exit(f"FATAL: duplicate statement labels in {path}.")
     return found
 
 

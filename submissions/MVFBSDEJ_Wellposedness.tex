@@ -4,7 +4,8 @@
 \usepackage{lmodern}
 
 \usepackage{amsthm,amsmath,amssymb}
-\usepackage{mathtools}  \usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{enumitem}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \hypersetup{pdftitle={Well-posedness of fully coupled McKean-Vlasov FBSDEs with jumps under full-tuple law dependence},
             pdfauthor={Chunrong Feng, Christian Garry},
@@ -60,7 +61,7 @@
 \theoremstyle{\PaperRemarkStyle}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{example}[theorem]{Example}
- \setlength{\emergencystretch}{3em}  
+ \setlength{\emergencystretch}{3em}
 
 \renewcommand{\PaperRunIn}[1]{\paragraph{#1}}
 
@@ -68,8 +69,6 @@
 \let\PaperOrigAppendix\appendix
 \renewcommand{\appendix}{\PaperOrigAppendix\gdef\thesection{\@Alph\c@section}}
 \makeatother
-
-
 
 \begin{document}
 
@@ -442,7 +441,7 @@ The constants satisfy
 \]
 with $\beta_1>0$ if $m<n$ and $\alpha,\beta_2>0$ if $m>n$.
 \end{assumption}
-\begin{remark}[Wasserstein bounds]
+\begin{remark}[Wasserstein bounds]\label{rem:wasserstein-bounds}
 The pair $(\Theta,\Theta')$ realises a coupling of $(\mu,\mu')$ on the common probability
 space, so the $W_2$-infimum~\cite[Definition~6.1]{Villani2009} is bounded by its synchronous transport
 cost:

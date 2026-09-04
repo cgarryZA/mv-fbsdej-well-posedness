@@ -46,12 +46,12 @@ render() {
     echo '\newcommand{\Nt}{\widetilde{N}}'
     echo '\newcommand{\Law}{\mathrm{Law}}'
     echo '\newcommand{\Lnu}{L^2(\nu)}'
-    echo "\\color{$colour}"
     echo '\begin{document}'
     if [ "$mode" = "abstract" ]; then
+      echo "\\color{$colour}"
       printf '%s\n' "$body"
     else
-      echo '$\displaystyle'
+      echo "\$\\displaystyle\\color{$colour}"
       printf '%s\n' "$body"
       echo '$'
     fi
@@ -75,3 +75,19 @@ render assets/abstract-light.svg black abstract "$ABSTRACT"
 render assets/abstract-dark.svg white abstract "$ABSTRACT"
 render assets/system-light.svg black equation "$EQUATION"
 render assets/system-dark.svg white equation "$EQUATION"
+
+# A dark variant that came out identical to its light twin renders black on a
+# dark background, which is invisible rather than obviously broken.
+for pair in abstract system; do
+  light="assets/$pair-light.svg"
+  dark="assets/$pair-dark.svg"
+  if cmp -s "$light" "$dark"; then
+    echo "ABORT: $dark is identical to $light" >&2
+    exit 1
+  fi
+  if ! grep -q "fill='#fff'" "$dark"; then
+    echo "ABORT: $dark carries no white fill" >&2
+    exit 1
+  fi
+  echo "  $pair: light and dark differ, dark fills white"
+done

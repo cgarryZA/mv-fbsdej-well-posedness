@@ -8,6 +8,7 @@ done
 [ -n "$PY" ] || { echo "ABORT: no working python interpreter found" >&2; exit 1; }
 
 OUT="submissions/spa-mvfbsdej-wellposedness-v1-source.zip"
+FLAT="submissions/MVFBSDEJ_Wellposedness.tex"
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 
@@ -42,3 +43,8 @@ mkdir -p submissions
 rm -f "$OUT"
 ( cd "$STAGE" && zip -qX "$OLDPWD/$OUT" wellposedness_spa.tex )
 echo "wrote $OUT ($(unzip -l "$OUT" | tail -1 | awk '{print $2}') files; compiles standalone, ${pages} pages)"
+
+# The loose flat TeX is the same staged source the archive carries. Writing it
+# here is what keeps it from drifting behind paper/ and the zip.
+cp "$STAGE/wellposedness_spa.tex" "$FLAT"
+echo "wrote $FLAT (same source as $OUT)"

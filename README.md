@@ -107,8 +107,11 @@ python3 scripts/check_paper_formats.py paper/wellposedness.aux paper/wellposedne
 bash scripts/make_readme_svg.sh
 ```
 
-These commands check that `references.bib` agrees with the embedded bibliography, compare
-the label-to-number mapping each format records for the paper's own statements, and regenerate the abstract and governing system directly from `paper/`. Run
+These commands check that `references.bib` and the embedded bibliography define the same
+keys, once each, and that every key is cited -- they compare keys and citedness, not author,
+title, year or DOI fields; compare
+the label-to-number mapping each format records for the paper's own statements, rejecting any
+format that defines a statement label twice; and regenerate the abstract and governing system directly from `paper/`. Run
 the artwork command whenever either changes. The first two also run on every push via
 [`.github/workflows/paper-formats.yml`](.github/workflows/paper-formats.yml).
 
