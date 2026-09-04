@@ -116,3 +116,12 @@ the artwork command whenever either changes. The first two also run on every pus
 
 Please cite the paper using GitHub's **Cite this repository** menu or
 [`CITATION.cff`](CITATION.cff).
+
+## Licensing
+
+The build, packaging and checking scripts under `scripts/` and the workflow
+under `.github/` are MIT (`LICENSE`).
+
+The manuscript is not (`LICENSE-PAPER`): everything under `paper/` and
+`submissions/`, the compiled PDF, and the figures generated from them are
+Copyright (c) 2026 Chunrong Feng and Christian Garry, all rights reserved.
