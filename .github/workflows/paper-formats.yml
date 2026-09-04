@@ -1,0 +1,62 @@
+name: Paper formats
+
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: paper-formats
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  formats:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX + poppler
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends \
+            texlive-latex-extra texlive-fonts-recommended texlive-science \
+            texlive-publishers lmodern latexmk poppler-utils texlive-extra-utils
+      - name: Build both formats
+        working-directory: paper
+        run: |
+          latexmk -pdf -interaction=nonstopmode -halt-on-error wellposedness.tex
+          latexmk -pdf -interaction=nonstopmode -halt-on-error wellposedness_spa.tex
+      - name: Check bibliography
+        run: python3 scripts/check_bib_sync.py
+      - name: Check statement numbering
+        run: |
+          python3 scripts/check_paper_formats.py \
+            paper/wellposedness.aux \
+            paper/wellposedness_spa.aux
+      - name: Check packaging guards reject comments
+        run: |
+          echo 'x % a comment' > guard_bad.tex
+          if python3 scripts/check_no_comments.py guard_bad.tex; then
+            echo "guard failed to reject a comment"; exit 1
+          fi
+          echo 'x 50\% literal' > guard_ok.tex
+          python3 scripts/check_no_comments.py guard_ok.tex
+          rm -f guard_bad.tex guard_ok.tex
+      - name: Package arXiv and SPA archives
+        run: |
+          bash scripts/make_arxiv_tarball.sh
+          bash scripts/make_spa_submission.sh
+      - name: Check PDF output routing
+        working-directory: paper
+        run: |
+          sha_before=$(sha256sum ../mvfbsdej-wellposedness.pdf | cut -d' ' -f1)
+          printf '%s\n' '\documentclass{article}\begin{document}dummy\end{document}' > dummy_ci.tex
+          latexmk -pdf -interaction=nonstopmode dummy_ci.tex
+          sha_after=$(sha256sum ../mvfbsdej-wellposedness.pdf | cut -d' ' -f1)
+          test "$sha_before" = "$sha_after" || { echo "an auxiliary build overwrote the manuscript PDF"; exit 1; }
+          echo "auxiliary build left the manuscript PDF unchanged"

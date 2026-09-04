@@ -1,0 +1,63 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2.45cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{setspace}
+\setstretch{1.15}
+\setlength{\parskip}{0.5\baselineskip plus 2pt}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\hypersetup{pdftitle={Well-posedness of fully coupled McKean-Vlasov FBSDEs with jumps under full-tuple law dependence},pdfauthor={Chunrong Feng, Christian Garry},
+            pdfkeywords={McKean-Vlasov FBSDEs, full-tuple law dependence, infinite jump activity, expected diagonal G-monotonicity, monotone continuation, Wasserstein distance}}
+\setlength{\emergencystretch}{3em}
+\input{macros}
+\input{theorems}
+\title{Well-posedness of fully coupled McKean--Vlasov\\
+FBSDEs with jumps under full-tuple law dependence}
+\author{Chunrong Feng and Christian Garry$^{*}$\\[4pt]
+\small \PaperDept\\[1pt]
+\small \PaperStreet, \PaperCity\ \PaperPostcode, \PaperCountry\\[3pt]
+\small \texttt{\PaperEmailFeng}\\[1pt]
+\small $^{*}$Corresponding author: \texttt{\PaperEmailGarry}}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove existence, uniqueness, and stability for fully coupled McKean--Vlasov
+forward--backward SDEs with jumps whose drift, diffusion, jump, and driver coefficients
+may depend Lipschitz-continuously, in quadratic Wasserstein distance, on the joint law of
+the full solution tuple $\Theta=(X,Y,Z,U)$: forward state, backward variable, Brownian
+integrand, and $\Lnu$-valued jump integrand. The terminal function may depend
+Lipschitz-continuously on $X_T$ and its law. The system is driven by a Brownian motion and an independent compensated Poisson
+random measure with arbitrary $\sigma$-finite intensity, so infinite jump activity is
+admitted.
+Both the Lipschitz and monotonicity hypotheses are imposed only along diagonal
+tuple--law pairs $(\Theta,\Law(\Theta))$; we show that expected diagonal monotonicity is
+strictly weaker than pointwise monotonicity.
+
+Under a jump-extended $G$-monotonicity condition we
+establish an a priori continuous-dependence estimate, uniqueness, and existence on every
+prescribed finite horizon, by monotone continuation in the coupling strength from a
+small-coupling base case. A mean-field dealer-market example realises the $U$-law
+dependence non-perturbatively: its law interaction is monotone at every interaction
+strength, and its mark measure has infinite activity.
+\end{abstract}
+
+\smallskip
+\noindent\textbf{Keywords:} McKean--Vlasov FBSDEs; full-tuple law dependence; infinite jump activity; expected diagonal $G$-monotonicity; monotone continuation; Wasserstein distance.
+
+\noindent\textbf{MSC 2020:} Primary 60H10; secondary 60G57.
+
+\input{sections/01-introduction}
+\input{sections/02-model-assumptions}
+\input{sections/03-main-results}
+\input{sections/04-proof-wellposedness}
+\input{sections/05-examples}
+\input{sections/06-conclusion}
+\input{sections/09-appendix}
+\input{sections/08-bibliography}
+\end{document}

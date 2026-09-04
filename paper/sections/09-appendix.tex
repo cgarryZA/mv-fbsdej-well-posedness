@@ -1,0 +1,74 @@
+\clearpage
+\appendix
+\section{Predictable representatives and the law flow}\label{app:lawflow}
+
+\begin{lemma}[Predictable representatives and the full-tuple law flow]\label{lem:lawflow}
+Let $X,Y$ be c\`adl\`ag adapted and let $Z,U$ be fixed predictable versions, with
+\[
+\E\int_0^T\Bigl(|X_t|^2+|Y_t|^2+|Z_t|_F^2+\int_E|U_t(e)|^2\,\nu(\diff e)\Bigr)\diff t
+<\infty .
+\]
+Then the a.e.-defined maps
+$t\mapsto\Law(\Theta_t^-)$ and $t\mapsto\Law(\Theta_t)$ admit Borel representatives,
+unique up to Lebesgue-null sets of times,
+\[
+\mu^-,\,\mu:[0,T]\to(\mathcal P_2(\mathcal H),W_2),
+\qquad
+\mu_t^-=\mu_t\quad\text{for a.e.\ }t .
+\]
+
+Coefficient evaluations along these representatives are invariant, up to
+$\diff t\otimes\diff\Prob$-null sets, under the choice of predictable representatives of
+$(Z,U)$ and of the Borel representatives.
+\end{lemma}
+\begin{proof}
+\emph{Step 1 (the field).} The left limits $X_-,Y_-$ are predictable and agree with $X,Y$
+$\diff t\otimes\diff\Prob$-a.e., as c\`adl\`ag paths jump at countably many times, so
+$\int_0^T\mathbf 1_{\{X_{t-}\neq X_t\}}\,\diff t=0$ almost surely; the hypothesis on
+$X,Y$ thus passes to them, and $\mathcal H$ is separable because $\Lnu$ is. The
+$Z$-coordinate is predictable and square-integrable by assumption. For the
+$U$-coordinate, the integrability hypothesis and the Fubini
+isometry~\eqref{eq:fubiniiso} give
+\[
+U\in L^2\bigl([0,T]\times\Omega\times E\bigr)\cong L^2\bigl([0,T]\times\Omega;\Lnu\bigr),
+\]
+so the induced map $(t,\omega)\mapsto U_t(\omega,\cdot)$ admits a predictable, strongly
+measurable $\Lnu$-valued representative. $\Theta^-$ is therefore a
+predictable, hence jointly measurable, $\mathcal H$-valued field with
+\[
+\E\int_0^T\|\Theta_t^-\|_{\mathcal H}^2\,\diff t<\infty,
+\qquad\text{that is,}\qquad
+\Theta^-\in L^2\bigl([0,T]\times\Omega;\mathcal H\bigr).
+\]
+The Fubini isometry of~\cite[Proposition~1.2.24]{HNVW},
+\[
+L^2\bigl([0,T]\times\Omega;\mathcal H\bigr)\ \cong\ L^2\bigl(0,T;L^2(\Omega;\mathcal H)\bigr),
+\]
+supplies a strongly measurable
+$L^2(\Omega;\mathcal H)$-valued representative of $t\mapsto\Theta_t^-$; by the Pettis
+measurability theorem~\cite[Theorem~1.1.6]{HNVW}, that map takes values in a separable
+closed subspace of $L^2(\Omega;\mathcal H)$ off a Lebesgue-null set of times, and
+therefore admits a Borel version, agreeing with it for a.e.\ $t$.
+
+\emph{Step 2 (Borel flow).} By the synchronous coupling bound~\eqref{eq:coupling}, the
+law map $\Theta\mapsto\Law(\Theta)$ is $1$-Lipschitz from $L^2(\Omega;\mathcal H)$ into
+$(\mathcal P_2(\mathcal H),W_2)$, which inherits Polishness from
+$\mathcal H$~\cite[Ch.~6]{Villani2009}. Composing it with the Borel version of Step~1 gives a
+Borel map $\mu^-:[0,T]\to\mathcal P_2(\mathcal H)$ with $\mu_t^-=\Law(\Theta_t^-)$
+for a.e.\ $t$; any two such representatives agree a.e. The same argument applied to
+the progressively measurable field $\Theta$ yields $\mu$; as $\Theta$ and $\Theta^-$
+agree $\diff t\otimes\diff\Prob$-a.e., $\mu_t=\mu_t^-$ for a.e.\ $t$.
+
+\emph{Step 3 (independence of representatives).} Let $(Z',U')$ be another pair of
+predictable versions, so $Z=Z'$ $\diff t\otimes\diff\Prob$-a.e.\ and $U=U'$
+$\diff t\otimes\diff\Prob\otimes\nu$-a.e.; by Fubini the latter gives $U=U'$ in $\Lnu$
+for $\diff t\otimes\diff\Prob$-a.e.\ $(t,\omega)$. The two fields therefore agree in
+$L^2(\Omega;\mathcal H)$ for a.e.\ $t$, whence $\mu_t^-=(\mu_t^-)'$ for a.e.\ $t$. The
+coefficients are therefore evaluated at arguments coinciding
+$\diff t\otimes\diff\Prob$-a.e.\ (in $\Lnu$ for the jump coefficient); changing the
+Borel representative likewise alters $\mu^-$ only on a Lebesgue-null set of times, hence
+the arguments only on a $\diff t\otimes\diff\Prob$-null set. In either case the
+coefficient processes represent the same $L^2$ classes over their respective product
+measures, so every Lebesgue and stochastic integral built from them, hence every
+identity and estimate, is unchanged.
+\end{proof}

@@ -1,0 +1,951 @@
+\section{Proof of well-posedness}
+\label{sec:wp-proof}
+
+The route is: backward $L^2$ estimate
+(Lemma~\ref{lem:bpbsde}) $\to$ small-coupling base case (Lemma~\ref{lem:small}) $\to$
+uniform stability on $[\lambda_*,1]$ (Lemma~\ref{lem:pert}), which at $\lambda=1$ gives
+Theorems~\ref{thm:stab} and~\ref{thm:uniq} $\to$ fixed-increment continuation
+(Lemma~\ref{lem:cont}) $\to$ Theorem~\ref{thm:cwp}, the continuation being along the
+coupling strength, in the tradition of Peng and Wu~\cite{PengWu}. The central a priori
+estimate rests on a mixed $G$-energy identity for $\inner{G\,\delta X_t}{\delta Y_t}$,
+whose compensated-Poisson cross-variation produces a coercive $\Lnu$ jump term controlled
+by the $G$-monotonicity assumption. The continuation is in the coupling strength, not the
+horizon: shortening the horizon does not make the frozen-coefficient map contractive,
+since the $(z,u)$-dependence of $\sigma,h$ and the full-tuple law coupling enter the
+contraction constant with no $T$-factor.
+
+Inside $\diff t$-integrals we do not distinguish $X_t,Y_t$ from $X_{t-},Y_{t-}$:
+c\`adl\`ag paths have only countably many jumps on compact intervals, so
+$\Theta_t^-=\Theta_t$ $\Prob$-a.s.\ and $\mu_t^-=\mu_t$ for a.e.\ $t$
+(Lemma~\ref{lem:lawflow}).
+
+Throughout this section, $C$ denotes a positive constant, not necessarily the same at each
+occurrence, depending only on $T,L,\|G\|,c_G,\alpha,\beta_1,\beta_2$ and the BDG constant
+$c_{\mathrm{BDG}}$, unless a different dependence is stated; recurring constants are
+subscripted ($C_0$, $C_{\mathrm{BP}}$, $C_B$, \dots) and fixed where they are introduced.
+
+It\^o's formula for L\'evy-type stochastic integrals, and the product form obtained by
+applying it to the bilinear map $(x,y)\mapsto\inner{Gx}{y}$, are those
+of~\cite[\S4.4]{Applebaum}, stated for the Brownian--Poisson setting fixed above. The
+maximal estimates use the Burkholder--Davis--Gundy inequality at $p=1$ in
+quadratic-variation form (\cite{HeWangYan}, chapter on $H^1$ and BMO); valid for
+c\`adl\`ag local martingales, it covers the compensated-Poisson martingales below without
+a separate jump statement. By localisation and dominated convergence, a c\`adl\`ag local
+martingale whose running supremum is integrable has zero-mean increments (the
+\emph{supremum criterion} below).
+
+For $\lambda\in[0,1]$ we work throughout with the \emph{$\lambda$-scaled, forced}
+system: for a square-integrable forcing
+$q=(q^b,q^\sigma,q^h,q^f,q^g_T)$ with
+\[
+\begin{aligned}
+q^b&\in L^2(\Omega\times[0,T];\R^n),
+&\qquad q^\sigma&\in L^2(\Omega\times[0,T];\R^{n\times d}),\\
+q^h&\in L^2(\Omega\times[0,T]\times E;\R^n),
+&\qquad q^f&\in L^2(\Omega\times[0,T];\R^m),\\
+q^g_T&\in L^2(\Omega,\F_T;\R^m),
+\end{aligned}
+\]
+where $q^b,q^\sigma,q^f$ are progressively
+measurable and $q^h$ is predictable ($\mathcal P\otimes\mathcal E$-measurable as
+in~\eqref{eq:fubiniiso}, square-integrable for $\diff\Prob\otimes\diff t\otimes\nu$),
+\begin{equation}\label{eq:forced}
+\left\{\;\begin{aligned}
+X_t&=\xi_0+\lambda\!\int_0^t b(s,\Theta_s,\mu_s)\,\diff s
++\lambda\!\int_0^t\sigma(s,\Theta_s,\mu_s)\,\diff W_s\\
+&\hspace{10.2em}+\lambda\!\int_0^t\!\!\int_E h(s,\Theta_s^-,e,\mu_s^-)\,\Nt(\diff s,\diff e)\\
+&\hspace{5.4em}+\int_0^t q_s^b\,\diff s+\int_0^t q_s^\sigma\,\diff W_s
++\int_0^t\!\!\int_E q_s^h(e)\,\Nt(\diff s,\diff e),\\[2.2ex]
+Y_t&=\lambda\,g(X_T,\Law(X_T))+\lambda\!\int_t^T f(s,\Theta_s,\mu_s)\,\diff s
++q_T^g+\int_t^T q_s^f\,\diff s\\
+&\hspace{12.6em}-\int_t^T Z_s\,\diff W_s-\int_t^T\!\!\int_E U_s(e)\,\Nt(\diff s,\diff e).
+\end{aligned}\right.
+\end{equation}
+Call the system \eqref{eq:forced} \emph{well posed at} $\lambda$ --- written
+$\mathsf{WP}(\lambda)$ --- if it has a unique solution in $\HH$ for \emph{every} such
+forcing $q$. The unforced target is
+$\mathsf{WP}(1)$ with $q\equiv0$, so it suffices to prove that
+$\mathsf{WP}(1)$ holds.
+
+By Assumptions~\ref{ass:integ}--\ref{ass:lip}, the coefficient processes~\eqref{eq:coefmeas}
+along any $\Theta\in\HH$ are square-integrable: for $\psi\in\{b,\sigma,h,f\}$, in the norms of
+Assumption~\ref{ass:lip},
+\begin{equation}\label{eq:coeffint}
+\E\!\int_0^T\!|\psi(s,\Theta_s,\mu_s)|^2\,\diff s
+\le C\,\E\!\int_0^T\!\Big(|X_s|^2+|Y_s|^2+|Z_s|_F^2+\Lnorm{U_s}^2
++|\psi(s,0,\delta_0)|^2\Big)\diff s,
+\end{equation}
+by that Lipschitz bound together with the coupling estimate \eqref{eq:coupling} at
+$\mu'=\delta_0$. For the terminal function the analogous bound
+\begin{equation}\label{eq:termg}
+\E|g(X_T,\Law(X_T))|^2\le C\big(\E|X_T|^2+|g(0,\delta_0)|^2\big)
+\end{equation}
+follows in the same way from \eqref{eq:lipT} and \eqref{eq:couplingT}.
+
+\subsection{A Brownian--Poisson \texorpdfstring{$L^2$}{L2} estimate}
+
+\begin{lemma}[Brownian--Poisson $L^2$ estimate]\label{lem:bpbsde}
+Let $\delta Y$ be a c\`adl\`ag adapted process and let $\delta Z\in\HW$, $\delta U\in\HN$
+satisfy
+\begin{equation}\label{eq:dYlin}
+\delta Y_t=\delta\xi+\int_t^T\phi_s\,\diff s-\int_t^T\delta Z_s\,\diff W_s-\int_t^T\!\int_E\delta U_s(e)\,\Nt(\diff s,\diff e)
+\end{equation}
+with $\delta\xi\in L^2(\F_T)$ and $\phi\in L^2(\Omega\times[0,T])$. Then
+$\delta Y\in\Ssp{\R^m}$, and there is a constant
+$C_{\mathrm{BP}}$, depending only on $T$ and $c_{\mathrm{BDG}}$, with
+\[
+\E\sup_{t\le T}|\delta Y_t|^2+\E\!\int_0^T\!\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s
+\le C_{\mathrm{BP}}\Big(\E|\delta\xi|^2+\E\!\int_0^T|\phi_s|^2\diff s\Big).
+\]
+\end{lemma}
+\begin{proof}
+\emph{Membership.} By \eqref{eq:dYlin} with $\int_t^T=\int_0^T-\int_0^t$,
+\[
+\sup_{t\le T}|\delta Y_t|\le|\delta\xi|+\int_0^T\!|\phi_s|\,\diff s
++2\sup_{t\le T}\Big|\int_0^t\delta Z_s\,\diff W_s\Big|
++2\sup_{t\le T}\Big|\int_0^t\!\!\int_E\delta U_s(e)\,\Nt(\diff s,\diff e)\Big|.
+\]
+Both stochastic integrals are true $L^2$-martingales by the It\^o and
+compensated-Poisson isometries, as $\delta Z\in\HW$ and $\delta U\in\HN$.
+Squaring, Cauchy--Schwarz on the drift term, and Doob's inequality then give
+$\E\sup_{t\le T}|\delta Y_t|^2<\infty$, that is, $\delta Y\in\Ssp{\R^m}$.
+
+The $\diff s$- and $\diff W$-integrals of $\delta Y$ are continuous, so
+$\delta Y$ jumps only through its compensated Poisson integral: its jumps
+$\Delta\,\delta Y_s:=\delta Y_s-\delta Y_{s-}$ satisfy $\Delta\,\delta Y_s=\delta U_s(e)$
+at each atom $(s,e)$ of $N$; hence the jump variation
+splits through $N=\Nt+\diff s\,\nu$ as
+\begin{align*}
+\sum_{t<s\le T}|\Delta\,\delta Y_s|^2
+&=\int_t^T\!\!\int_E|\delta U_s(e)|^2\,N(\diff s,\diff e)\\
+&=\int_t^T\!\!\int_E|\delta U_s(e)|^2\,\Nt(\diff s,\diff e)
++\int_t^T\!\Lnorm{\delta U_s}^2\,\diff s.
+\end{align*}
+It\^o's formula for
+$e^{t}|\delta Y_t|^2$ then gives the pathwise identity
+\begin{equation}\label{eq:itoY2}
+\begin{aligned}
+e^{t}|\delta Y_t|^2
+&+\int_t^T\!e^{s}\big(|\delta Y_s|^2+|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s\\
+&=e^{T}|\delta\xi|^2+2\int_t^T\!e^{s}\inner{\delta Y_s}{\phi_s}\diff s\\
+&\quad-2\int_t^T\!e^{s}\inner{\delta Y_{s-}}{\delta Z_s\,\diff W_s}\\
+&\quad-2\int_t^T\!\!\int_E e^{s}\inner{\delta Y_{s-}}{\delta U_s(e)}\,\Nt(\diff s,\diff e)\\
+&\quad-\int_t^T\!\!\int_E e^{s}|\delta U_s(e)|^2\,\Nt(\diff s,\diff e).
+\end{aligned}
+\end{equation}
+
+\emph{Zero-mean terms.} The stochastic-integral terms in \eqref{eq:itoY2} decompose into three
+local martingales
+\[
+\begin{aligned}
+M^W_t&:=\int_0^t e^{s}\inner{\delta Y_{s-}}{\delta Z_s\,\diff W_s},\\
+M^1_t&:=\int_0^t\!\int_E e^{s}\inner{\delta Y_{s-}}{\delta U_s(e)}\,\Nt(\diff s,\diff e),\\
+M^2_t&:=\int_0^t\!\int_E e^{s}|\delta U_s(e)|^2\,\Nt(\diff s,\diff e),
+\end{aligned}
+\]
+each of which we now show satisfies $\E[M_T-M_t]=0$. The three do not share one argument:
+$\delta U\in\HN$ gives the quadratic integrand of $M^2$ no square moments, so the $L^2$
+theory behind the bounds below does not reach it --- nor, with $\nu(E)=\infty$ admitted,
+does localisation along jump times, which then fail to exhaust $[0,T]$. $M^2$ is instead
+handled through the compensation formula, which asks only for integrability.
+For $M^W$, BDG and Cauchy--Schwarz give
+\[
+\E\sup_{t\le T}|M^W_t|
+\le c_{\mathrm{BDG}}\,e^{T}\big(\E\sup_{t\le T}|\delta Y_t|^2\big)^{1/2}
+\Big(\E\!\int_0^T\!|\delta Z_s|_F^2\,\diff s\Big)^{1/2}<\infty ,
+\]
+and for $M^1$ BDG, Cauchy--Schwarz and \eqref{eq:compid} give
+\begin{align*}
+\E\sup_{t\le T}|M^1_t|
+&\le c_{\mathrm{BDG}}\,\E\Big[\Big(\int_0^T\!\!\int_E e^{2s}|\delta Y_{s-}|^2|\delta U_s(e)|^2
+\,N(\diff s,\diff e)\Big)^{1/2}\Big]\\
+&\le c_{\mathrm{BDG}}\,e^{T}\big(\E\sup_{t\le T}|\delta Y_t|^2\big)^{1/2}
+\Big(\E\!\int_0^T\!\!\int_E|\delta U_s(e)|^2\,N(\diff s,\diff e)\Big)^{1/2}\\
+&=c_{\mathrm{BDG}}\,e^{T}\big(\E\sup_{t\le T}|\delta Y_t|^2\big)^{1/2}
+\Big(\E\!\int_0^T\!\!\int_E|\delta U_s(e)|^2\,\nu(\diff e)\,\diff s\Big)^{1/2}\\
+&=c_{\mathrm{BDG}}\,e^{T}\big(\E\sup_{t\le T}|\delta Y_t|^2\big)^{1/2}
+\Big(\E\!\int_0^T\!\Lnorm{\delta U_s}^2\,\diff s\Big)^{1/2}<\infty .
+\end{align*}
+These bounds put the running suprema of $M^W$ and $M^1$ in $L^1$, so the supremum
+criterion gives $\E[M_T-M_t]=0$ for $M\in\{M^W,M^1\}$.
+For $M^2$ the integrand $e^{s}|\delta U_s(e)|^2$ is predictable and nonnegative and,
+because $\delta U\in\HN$, lies in $L^1(\diff\Prob\otimes\diff s\otimes\nu)$:
+\[
+\E\!\int_0^T\!\!\int_E e^{s}|\delta U_s(e)|^2\,\nu(\diff e)\,\diff s
+\le e^{T}\,\E\!\int_0^T\!\Lnorm{\delta U_s}^2\,\diff s<\infty .
+\]
+Both the Poisson integral and its compensator are therefore integrable, so the increment
+splits under the expectation:
+\begin{align*}
+\E[M^2_T-M^2_t]
+&=\E\!\int_t^T\!\!\int_E e^{s}|\delta U_s(e)|^2\,\Nt(\diff s,\diff e)\\
+&=\E\!\int_t^T\!\!\int_E e^{s}|\delta U_s(e)|^2\,N(\diff s,\diff e)
+-\E\!\int_t^T\!\!\int_E e^{s}|\delta U_s(e)|^2\,\nu(\diff e)\,\diff s\\
+&=0 .
+\end{align*}
+Taking
+expectations in \eqref{eq:itoY2} therefore removes the three martingale terms, and
+bounding the drift term by Young's inequality,
+$2\inner{\delta Y_s}{\phi_s}\le|\delta Y_s|^2+|\phi_s|^2$, cancels the $|\delta Y_s|^2$
+integrals on the two sides:
+\[
+\E e^{t}|\delta Y_t|^2
++\E\int_t^T e^{s}\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s
+\le
+\E e^{T}|\delta\xi|^2
++\E\int_t^T e^{s}|\phi_s|^2\diff s .
+\]
+Bounding $1\le e^{s}\le e^{T}$ on both sides leaves, for every $t\le T$,
+\[
+\E|\delta Y_t|^2+\E\int_t^T\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s\le R ,
+\qquad
+R:=e^{T}\Big(\E|\delta\xi|^2+\E\int_0^T|\phi_s|^2\diff s\Big).
+\]
+Both terms on the left are nonnegative and $R$ does not depend on $t$, so each is bounded
+by $R$ on its own, the first uniformly in $t$ and the second at $t=0$; adding them,
+\begin{equation}\label{eq:supE}
+\begin{aligned}
+&\sup_{t\le T}\E|\delta Y_t|^2
++\E\int_0^T\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s\\
+&\qquad\le 2R
+=C_0\Big(\E|\delta\xi|^2+\E\int_0^T|\phi_s|^2\diff s\Big),
+\qquad
+C_0:=2e^{T} .
+\end{aligned}
+\end{equation}
+
+It remains to upgrade $\sup_{t\le T}\E|\delta Y_t|^2$ to $\E\sup_{t\le T}|\delta Y_t|^2$. Taking the difference of
+\eqref{eq:dYlin} at times $t$ and $0$ gives the forward form
+\[
+\delta Y_t=\delta Y_0-\int_0^t\phi_s\diff s+\int_0^t\delta Z_s\diff W_s+\int_0^t\!\int_E\delta U_s(e)\Nt(\diff s,\diff e) .
+\]
+Squaring, taking the supremum over $t$, Cauchy--Schwarz on the $\diff s$-integral, and BDG on
+the two martingales give
+\begin{align*}
+\E\sup_{t\le T}|\delta Y_t|^2
+&\le 4\,\E|\delta Y_0|^2+4\,\E\Big(\int_0^T\!|\phi_s|\diff s\Big)^{2}\\
+&\qquad+4\,\E\sup_{t\le T}\Big|\int_0^t\!\delta Z_s\diff W_s\Big|^{2}
++4\,\E\sup_{t\le T}\Big|\int_0^t\!\!\int_E\delta U_s(e)\,\Nt(\diff s,\diff e)\Big|^{2}\\
+&\le 4\,\E|\delta Y_0|^2+4T\,\E\!\int_0^T\!|\phi_s|^2\diff s
++4c_{\mathrm{BDG}}\,\E\!\int_0^T\!\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s .
+\end{align*}
+Using $\E|\delta Y_0|^2\le\sup_{t\le T}\E|\delta Y_t|^2$ and \eqref{eq:supE},
+\begin{align*}
+\E\sup_{t\le T}|\delta Y_t|^2
+&+\E\!\int_0^T\!\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s\\
+&\le 4\sup_{t\le T}\E|\delta Y_t|^2
++(4c_{\mathrm{BDG}}+1)\,\E\!\int_0^T\!\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s\\
+&\qquad+4T\,\E\!\int_0^T\!|\phi_s|^2\diff s\\
+&\le\big(4C_0+(4c_{\mathrm{BDG}}+1)C_0+4T\big)
+\Big(\E|\delta\xi|^2+\E\!\int_0^T\!|\phi_s|^2\diff s\Big)\\
+&=C_{\mathrm{BP}}\Big(\E|\delta\xi|^2+\E\!\int_0^T\!|\phi_s|^2\diff s\Big),
+\qquad C_{\mathrm{BP}}:=C_0(5+4c_{\mathrm{BDG}})+4T .
+\end{align*}
+This depends only on $T$ and $c_{\mathrm{BDG}}$.
+\end{proof}
+
+\subsection{Small-coupling solvability}
+
+\begin{lemma}[Small-coupling base case]\label{lem:small}
+Under Assumptions~\ref{ass:integ}--\ref{ass:lip}, there is $\lambda_*\in(0,1]$, depending only on $T$, $L$ and
+$c_{\mathrm{BDG}}$, such that $\mathsf{WP}(\lambda)$ holds for
+every $\lambda\in[0,\lambda_*]$.
+\end{lemma}
+
+\begin{proof}
+Fix $\lambda\in[0,1]$ and a forcing $q$. For a trial tuple $\Theta=(X,Y,Z,U)\in\HH$ write
+\[
+\mu^\Theta_t:=\Law(\Theta_t),\qquad\mu^{\Theta,-}_t:=\Law(\Theta_t^-),
+\]
+and define $\Phi_\lambda(\Theta):=\bar\Theta=(\bar X,\bar Y,\bar Z,\bar U)$ by the forward and
+backward constructions below.
+
+\emph{Forward.} Let $\bar X$ be given by the frozen forward dynamics
+\begin{multline}\label{eq:frozenfwd}
+\bar X_t=\xi_0+\lambda\!\int_0^t b(s,\Theta_s,\mu^\Theta_s)\,\diff s
++\lambda\!\int_0^t\sigma(s,\Theta_s,\mu^\Theta_s)\,\diff W_s\\
++\lambda\!\int_0^t\!\!\int_E h(s,\Theta_s^-,e,\mu^{\Theta,-}_s)\,\Nt(\diff s,\diff e)\\
++\int_0^t q^b_s\,\diff s+\int_0^t q^\sigma_s\,\diff W_s+\int_0^t\!\!\int_E q^h_s(e)\,\Nt(\diff s,\diff e).
+\end{multline}
+In \eqref{eq:frozenfwd} the coefficient $h$ is evaluated at the left limits
+$(\Theta^-_s,\mu^{\Theta,-}_s)$; by Lemma~\ref{lem:lawflow} these agree with
+$(\Theta_s,\mu^\Theta_s)$ outside a $\diff t\otimes\diff\Prob$-null set, so either form may be
+used inside the $\diff t\otimes\diff\Prob$-integrals below.
+Since $\Theta\in\HH$, \eqref{eq:coeffint} gives
+\[
+\E\!\int_0^T\!|\psi(s,\Theta_s,\mu^\Theta_s)|^2\,\diff s<\infty
+\qquad\text{for }\psi\in\{b,\sigma,h\},
+\]
+and $q^b,q^\sigma,q^h$ are square-integrable by hypothesis. The coefficients are jointly Borel,
+so these integrands are progressively measurable and the jump integrand is predictable.
+Cauchy--Schwarz on the drift and Doob/BDG on the two martingale integrals then give
+$\E\sup_{t\le T}|\bar X_t|^2<\infty$, so \eqref{eq:frozenfwd} defines a unique
+$\bar X\in\Ssp{\R^n}$.
+
+\emph{Backward.} The random variable
+\[
+\Xi:=\lambda\,g(\bar X_T,\Law(\bar X_T))+q^g_T+\int_0^T(\lambda f(s,\Theta_s,\mu^\Theta_s)+q^f_s)\,\diff s
+\]
+lies in $L^2(\Omega,\F_T;\R^m)$ by \eqref{eq:termg}, \eqref{eq:coeffint} applied to $f$, and the
+square-integrability of $q^g_T$ and $q^f$. Set $M_t:=\E[\Xi\mid\F_t]$. By the Brownian--Poisson
+predictable representation property there are unique
+$\bar Z\in\HW$, $\bar U\in\HN$ with
+\[
+M_t=M_0+\int_0^t\bar Z_s\,\diff W_s+\int_0^t\!\int_E\bar U_s(e)\,\Nt(\diff s,\diff e).
+\]
+Put
+\[
+\bar Y_t:=M_t-\int_0^t(\lambda f(s,\Theta_s,\mu^\Theta_s)+q^f_s)\,\diff s .
+\]
+Doob's inequality and $\Xi\in L^2$ give $M\in\Ssp{\R^m}$. The drift is square-integrable by
+\eqref{eq:coeffint} and $q^f\in L^2$, so Cauchy--Schwarz gives $\bar Y\in\Ssp{\R^m}$. By construction
+$(\bar Y,\bar Z,\bar U)$ solves the frozen linear BSDE
+\begin{multline}\label{eq:frozenbwd}
+\bar Y_t=\lambda g(\bar X_T,\Law(\bar X_T))+q^g_T
++\int_t^T\!(\lambda f(s,\Theta_s,\mu^\Theta_s)+q^f_s)\,\diff s\\
+-\int_t^T\bar Z_s\,\diff W_s-\int_t^T\!\!\int_E\bar U_s(e)\,\Nt(\diff s,\diff e),
+\end{multline}
+so $\bar\Theta\in\HH$ and $\Phi_\lambda:\HH\to\HH$ is well defined.
+
+\emph{Contraction.} Take $\Theta^1,\Theta^2\in\HH$, write $\bar\Theta^k=\Phi_\lambda(\Theta^k)$,
+and set
+\[
+\begin{gathered}
+\delta\psi_s:=\psi(s,\Theta^1_s,\mu^{\Theta^1}_s)-\psi(s,\Theta^2_s,\mu^{\Theta^2}_s)
+\quad(\psi\in\{b,\sigma,h,f\}),\\[0.4ex]
+\delta X:=X^1-X^2,\qquad \delta\bar X:=\bar X^1-\bar X^2 ,
+\end{gathered}
+\]
+and likewise for the remaining components of $\Theta^1-\Theta^2$ and of
+$\bar\Theta^1-\bar\Theta^2$; the common initial datum $\xi_0$ and
+the fixed forcing $q$ cancel in every difference.
+
+\emph{Step 1: the coefficient differences.} Write
+$S_s:=|\delta b_s|+|\delta\sigma_s|_F+\Lnorm{\delta h_s}+|\delta f_s|$. Assumption~\ref{ass:lip},
+applied to the diagonal inputs $(\Theta^1_s,\mu^{\Theta^1}_s)$ and $(\Theta^2_s,\mu^{\Theta^2}_s)$,
+gives
+\[
+S_s\le L\Big(|\delta X_s|+|\delta Y_s|+|\delta Z_s|_F+\Lnorm{\delta U_s}
++W_2\big(\mu^{\Theta^1}_s,\mu^{\Theta^2}_s\big)\Big) .
+\]
+Squaring, using Cauchy--Schwarz in $\R^5$, taking expectations, and bounding the deterministic
+Wasserstein term by \eqref{eq:coupling} give
+\[
+\E\,S_s^2\le 10L^2\,\E\big[|\delta X_s|^2+|\delta Y_s|^2+|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big].
+\]
+Integrating in $s$ and dominating the $X$- and $Y$-slots by their suprema,
+\begin{equation}\label{eq:coeffdiff}
+\begin{aligned}
+\E\!\int_0^T\! S_s^2\,\diff s
+&\le 10L^2\,\E\!\int_0^T\!\big(|\delta X_s|^2+|\delta Y_s|^2+|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s\\
+&\le 10L^2\Big(T\,\E\sup_{t\le T}|\delta X_t|^2+T\,\E\sup_{t\le T}|\delta Y_t|^2\\
+&\hspace{6.2em}+\E\!\int_0^T\!\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s\Big)\\
+&\le L_\star^2\,\|\Theta^1-\Theta^2\|_{\HH}^2 ,
+\qquad L_\star^2:=10L^2\max\{T,1\} .
+\end{aligned}
+\end{equation}
+
+\emph{Step 2: the forward difference.} Taking the difference of \eqref{eq:frozenfwd} at
+$\Theta^1$ and $\Theta^2$,
+\[
+\delta\bar X_t=\lambda\!\int_0^t\!\delta b_s\,\diff s+\lambda\!\int_0^t\!\delta\sigma_s\,\diff W_s
++\lambda\!\int_0^t\!\!\int_E\delta h_s(e)\,\Nt(\diff s,\diff e) .
+\]
+Squaring, taking the supremum in $t$, and taking expectations,
+\begin{equation}\label{eq:fwddiff}
+\begin{aligned}
+\E\sup_{t\le T}|\delta\bar X_t|^2
+&\le 3\lambda^2\Big[\E\Big(\int_0^T\!|\delta b_s|\,\diff s\Big)^{2}
++\E\sup_{t\le T}\Big|\int_0^t\!\delta\sigma_s\,\diff W_s\Big|^{2}\\
+&\hspace{13.4em}+\E\sup_{t\le T}\Big|\int_0^t\!\!\int_E\delta h_s(e)\,\Nt(\diff s,\diff e)\Big|^{2}\Big]\\
+&\le 3\lambda^2\Big[T\,\E\!\int_0^T\!|\delta b_s|^2\,\diff s
++c_{\mathrm{BDG}}\,\E\!\int_0^T\!|\delta\sigma_s|_F^2\,\diff s
++c_{\mathrm{BDG}}\,\E\!\int_0^T\!\Lnorm{\delta h_s}^2\,\diff s\Big]\\
+&\le 3\lambda^2\max\{T,c_{\mathrm{BDG}}\}\,
+\E\!\int_0^T\!\big(|\delta b_s|^2+|\delta\sigma_s|_F^2+\Lnorm{\delta h_s}^2\big)\diff s\\
+&\le 3\lambda^2\max\{T,c_{\mathrm{BDG}}\}\,\E\!\int_0^T\! S_s^2\,\diff s\\
+&\le C_X\lambda^2\,\|\Theta^1-\Theta^2\|_{\HH}^2 ,
+\qquad C_X:=3\max\{T,c_{\mathrm{BDG}}\}\,L_\star^2 ,
+\end{aligned}
+\end{equation}
+the jump term by \eqref{eq:compid}, the next step since the summands of $S_s$ are
+non-negative, and the last by \eqref{eq:coeffdiff}.
+
+\emph{Step 3: the terminal difference.} Put
+\[
+\delta\bar\xi:=\lambda\big[g(\bar X^1_T,\Law(\bar X^1_T))-g(\bar X^2_T,\Law(\bar X^2_T))\big].
+\]
+Then
+\begin{equation}\label{eq:terdiff}
+\begin{aligned}
+\E|\delta\bar\xi|^2
+&\le\lambda^2L^2\,\E\big(|\delta\bar X_T|+W_2(\Law(\bar X^1_T),\Law(\bar X^2_T))\big)^2\\
+&\le2\lambda^2L^2\big(\E|\delta\bar X_T|^2+W_2(\Law(\bar X^1_T),\Law(\bar X^2_T))^2\big)\\
+&\le C_g\lambda^2\,\E|\delta\bar X_T|^2 ,\qquad C_g:=4L^2 ,
+\end{aligned}
+\end{equation}
+the first step by \eqref{eq:lipT} and the last by \eqref{eq:couplingT}.
+
+\emph{Step 4: the backward difference.} Taking the difference of \eqref{eq:frozenbwd} at
+$\Theta^1$ and $\Theta^2$, the terms $q^g_T$ and $q^f$ cancelling,
+\[
+\delta\bar Y_t=\delta\bar\xi+\int_t^T\!\lambda\,\delta f_s\,\diff s
+-\int_t^T\!\delta\bar Z_s\,\diff W_s-\int_t^T\!\!\int_E\delta\bar U_s(e)\,\Nt(\diff s,\diff e) ,
+\]
+which is \eqref{eq:dYlin} with $\delta\xi=\delta\bar\xi$ and $\phi_s=\lambda\,\delta f_s$.
+$\delta\bar Y$ is c\`adl\`ag adapted, and the remaining hypotheses hold:
+\[
+\begin{alignedat}{2}
+(\delta\bar Z,\delta\bar U)&\in\HW\times\HN
+&\quad&\text{since }\bar\Theta^1,\bar\Theta^2\in\HH,\\
+\delta\bar\xi&\in L^2(\F_T) &&\text{by }\eqref{eq:termg},\\
+\lambda\,\delta f&\in L^2(\Omega\times[0,T]) &&\text{by }\eqref{eq:coeffdiff},
+\text{ as }|\delta f|\le S.
+\end{alignedat}
+\]
+By Lemma~\ref{lem:bpbsde},
+\begin{equation}\label{eq:bwddiff}
+\begin{aligned}
+\E\sup_{t\le T}|\delta\bar Y_t|^2
+&+\E\!\int_0^T\!\big(|\delta\bar Z_s|_F^2+\Lnorm{\delta\bar U_s}^2\big)\diff s\\
+&\le C_{\mathrm{BP}}\Big(\E|\delta\bar\xi|^2+\lambda^2\,\E\!\int_0^T\!|\delta f_s|^2\,\diff s\Big)\\
+&\le C_{\mathrm{BP}}\Big(C_g\lambda^2\,\E|\delta\bar X_T|^2
++L_\star^2\lambda^2\,\|\Theta^1-\Theta^2\|_{\HH}^2\Big)\\
+&\le C_{\mathrm{BP}}\Big(C_g\lambda^2\,\E\sup_{t\le T}|\delta\bar X_t|^2
++L_\star^2\lambda^2\,\|\Theta^1-\Theta^2\|_{\HH}^2\Big)\\
+&\le C_{\mathrm{BP}}\big(C_gC_X\lambda^4+L_\star^2\lambda^2\big)\|\Theta^1-\Theta^2\|_{\HH}^2\\
+&\le C_Y\lambda^2\,\|\Theta^1-\Theta^2\|_{\HH}^2 ,
+\qquad C_Y:=C_{\mathrm{BP}}\big(C_gC_X+L_\star^2\big) ,
+\end{aligned}
+\end{equation}
+the second inequality by \eqref{eq:terdiff} and \eqref{eq:coeffdiff}, the fourth by
+\eqref{eq:fwddiff}, and the last by $\lambda^4\le\lambda^2$ for $\lambda\in[0,1]$.
+
+\emph{Step 5: the contraction.} Since
+$\Phi_\lambda(\Theta^1)-\Phi_\lambda(\Theta^2)
+=(\delta\bar X,\delta\bar Y,\delta\bar Z,\delta\bar U)$,
+\begin{equation}\label{eq:contract}
+\begin{aligned}
+\|\Phi_\lambda(\Theta^1)-\Phi_\lambda(\Theta^2)\|_{\HH}^2
+&=\E\sup_{t\le T}|\delta\bar X_t|^2\\
+&\quad+\E\sup_{t\le T}|\delta\bar Y_t|^2
++\E\!\int_0^T\!\big(|\delta\bar Z_s|_F^2+\Lnorm{\delta\bar U_s}^2\big)\diff s\\
+&\le(C_X+C_Y)\lambda^2\,\|\Theta^1-\Theta^2\|_{\HH}^2\\
+&\le C_\Phi\lambda^2\,\|\Theta^1-\Theta^2\|_{\HH}^2 ,
+\qquad C_\Phi:=\max\{1,C_X+C_Y\} ,
+\end{aligned}
+\end{equation}
+the first inequality by \eqref{eq:fwddiff} and \eqref{eq:bwddiff}. Here
+\[
+L_\star=L_\star(T,L),\quad C_X=C_X(T,L,c_{\mathrm{BDG}}),\quad
+C_g=C_g(L),\quad C_{\mathrm{BP}}=C_{\mathrm{BP}}(T,c_{\mathrm{BDG}}),
+\]
+so $C_\Phi=C_\Phi(T,L,c_{\mathrm{BDG}})$. Setting
+\[
+\lambda_*:=(2\sqrt{C_\Phi})^{-1}\in(0,\tfrac12]
+\]
+gives $C_\Phi\lambda^2\le\tfrac14$ for $\lambda\in[0,\lambda_*]$, so that \eqref{eq:contract}
+reads
+\[
+\|\Phi_\lambda(\Theta^1)-\Phi_\lambda(\Theta^2)\|_{\HH}
+\le\tfrac12\,\|\Theta^1-\Theta^2\|_{\HH},\qquad\lambda\in[0,\lambda_*] .
+\]
+By the Banach fixed-point theorem, $\Phi_\lambda$ has a unique fixed point $\Theta\in\HH$.
+Evaluating $\Phi_\lambda$ at $\Theta$ itself,
+\[
+\mu^\Theta=\mu,\qquad\bar\Theta=\Theta ,
+\]
+so \eqref{eq:frozenfwd}--\eqref{eq:frozenbwd} become the forward and backward equations of
+\eqref{eq:forced}, which is solved by $\Theta$.
+
+\emph{Conversely.} Let $\Theta\in\HH$ solve \eqref{eq:forced} and evaluate $\Phi_\lambda$
+at the trial $\Theta$. Again $\mu^\Theta=\mu$, so \eqref{eq:frozenfwd} and the forward
+equation of \eqref{eq:forced} have the same right-hand side, which does not involve
+$\bar X$; hence $\bar X=X$. For the backward component set
+\[
+M'_t:=Y_t+\int_0^t\!\big(\lambda f(s,\Theta_s,\mu_s)+q^f_s\big)\,\diff s ,
+\]
+so that
+\[
+M'_T=\Xi,\qquad
+\diff M'_t=Z_t\,\diff W_t+\int_E U_t(e)\,\Nt(\diff t,\diff e) .
+\]
+Since $Z\in\HW$ and $U\in\HN$, $M'$ is a true $L^2$-martingale, so
+\[
+M'_t=\E[\Xi\mid\F_t]=M_t .
+\]
+Uniqueness of the predictable representation forces $(\bar Z,\bar U)=(Z,U)$, and
+\eqref{eq:frozenbwd} then gives $\bar Y=Y$, so
+\[
+\bar\Theta=\Theta .
+\]
+Solutions are therefore exactly the fixed points, and the solution is unique; as $q$ was
+arbitrary, $\mathsf{WP}(\lambda)$ holds on $[0,\lambda_*]$.
+\end{proof}
+
+\subsection{Continuous perturbation stability}
+
+\begin{lemma}[Continuous perturbation stability along the homotopy]\label{lem:pert}
+Let Assumptions~\ref{ass:lip}--\ref{ass:mono} hold, fix $\underline\lambda\in(0,1]$, and
+fix $\lambda\in[\underline\lambda,1]$. Let
+$\Theta^1,\Theta^2$ solve \eqref{eq:forced} at parameter $\lambda$ with $\F_0$-measurable
+initial data $\xi_0^1,\xi_0^2$ and forcings
+$q^k=(q^{b,k},q^{\sigma,k},q^{h,k},q^{f,k},q^{g,k}_T)$, $k=1,2$, where, for each $k$,
+$X^k,Y^k$ are c\`adl\`ag adapted with
+$\E\int_0^T(|X^k_t|^2+|Y^k_t|^2)\,\diff t<\infty$ and $X^k_T\in L^2(\Omega,\F_T;\R^n)$,
+$Z^k\in\HW$, $U^k\in\HN$, and $\Theta^1-\Theta^2\in\HH$. Then, writing
+$\delta\,{\cdot}={\cdot}^1-{\cdot}^2$,
+\begin{multline}\label{eq:contpert}
+\E\sup_{t\le T}|\delta X_t|^2+\E\sup_{t\le T}|\delta Y_t|^2
++\E\!\int_0^T\!\big(|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t\\
+\le C_B\Big(\E|\delta\xi_0|^2+\E|\delta q^g_T|^2
++\E\!\int_0^T\!\big(|\delta q^b_t|^2+|\delta q^\sigma_t|_F^2
++\Lnorm{\delta q^h_t}^2+|\delta q^f_t|^2\big)\diff t\Big),
+\end{multline}
+where $C_B$ depends only on
+$T,L,\|G\|,c_G,\alpha,\beta_1,\beta_2,\underline\lambda$ and $c_{\mathrm{BDG}}$.
+\end{lemma}
+\begin{proof}
+The difference equations below involve the forcings only through $\delta q$, which we
+therefore write simply as $q$. We define
+\[
+P:=\E|\delta\xi_0|^2+\E|q^g_T|^2
++\E\!\int_0^T\!\big(|q^b_t|^2+|q^\sigma_t|_F^2+\Lnorm{q^h_t}^2+|q^f_t|^2\big)\diff t .
+\]
+Set
+\[
+\delta\psi_t:=\psi(t,\Theta^1_t,\mu^1_t)-\psi(t,\Theta^2_t,\mu^2_t),\qquad
+\psi\in\{b,\sigma,h,f\},
+\]
+where $\mu^k_t:=\Law(\Theta^k_t)$; likewise $\delta g_T$, with $\delta h$ evaluated at the
+predictable tuples $(\Theta^{k,-}_t,\mu^{k,-}_t)$. For a.e.\ $t$ each pair
+$(\Theta^k_t,\mu^k_t)$ is a diagonal input in the sense of Definition~\ref{def:diag}:
+$\Theta^k_t\in L^2(\Omega,\F_t;\mathcal H)$ for a.e.\ $t$ by Fubini, and $\mu^k_t$ is
+the Borel law flow of Lemma~\ref{lem:lawflow}.
+The difference equations are
+\begin{align}
+\diff\,\delta X_t&=(\lambda\delta b_t+q^b_t)\,\diff t+(\lambda\delta\sigma_t+q^\sigma_t)\,\diff W_t
++\int_E(\lambda\delta h_t(e)+q^h_t(e))\,\Nt(\diff t,\diff e),\label{eq:dX}\\
+\diff\,\delta Y_t&=-(\lambda\delta f_t+q^f_t)\,\diff t+\delta Z_t\,\diff W_t
++\int_E\delta U_t(e)\,\Nt(\diff t,\diff e),\qquad \delta Y_T=\lambda\,\delta g_T+q^g_T.\label{eq:dY}
+\end{align}
+
+The five steps run as follows. Steps~1--2 pair $G\,\delta X$ against $\delta Y$ and
+insert Assumption~\ref{ass:mono}: this controls the projections $G\delta X$ and
+$\Gstar\delta Y,\Gstar\delta Z,\Gstar\delta U$, but only by the data $P$ together with a
+free multiple of the full norm. Steps~3--4 record two a~priori estimates, the forward one
+bounding $\delta X$ through $(\delta Y,\delta Z,\delta U)$ and the backward one bounding
+$(\delta Y,\delta Z,\delta U)$ through $\delta X$; neither closes alone.
+Step~5 breaks the circle: full rank makes $\Gstar$ injective
+when $n\ge m$ and $G$ injective when $m\ge n$, so the coercive blocks present shed their
+projections, and which blocks are present decides whether the forward or the backward
+estimate enters first. The free multiple is then chosen small and absorbed.
+
+\emph{Step 1 ($G$-energy identity).} Both $\delta X$ and $\delta Y$ jump only through
+their compensated Poisson integrals, with $\Delta\,\delta X_t=(\lambda\delta h_t+q^h_t)(e)$
+and $\Delta\,\delta Y_t=\delta U_t(e)$ at each atom $(t,e)$ of $N$; hence the jump
+covariation splits through $N=\Nt+\diff t\,\nu$ as
+\[
+\begin{aligned}
+\sum_{t\le T}\inner{G\,\Delta\delta X_t}{\Delta\delta Y_t}
+&=\int_0^T\!\!\int_E\inner{G(\lambda\delta h_t+q^h_t)(e)}{\delta U_t(e)}\,N(\diff t,\diff e)\\
+&=\int_0^T\!\!\int_E\inner{G(\lambda\delta h_t+q^h_t)(e)}{\delta U_t(e)}\,\Nt(\diff t,\diff e)\\
+&+\int_0^T\!\!\int_E\inner{\lambda\delta h_t(e)+q^h_t(e)}{\Gstar\delta U_t(e)}\,\nu(\diff e)\diff t .
+\end{aligned}
+\]
+The continuous covariation of $\delta X$ and $\delta Y$, whose diffusions are
+$\lambda\delta\sigma_t+q^\sigma_t$ and $\delta Z_t$, contributes
+\[
+\int_0^T\inner{\lambda\delta\sigma_t+q^\sigma_t}{\Gstar\delta Z_t}_F\,\diff t .
+\]
+It\^o's product formula for $\inner{G\,\delta X_t}{\delta Y_t}$, integrated over $[0,T]$ and using
+$\delta X_0=\delta\xi_0$, then gives the pathwise identity
+\begin{equation}\label{eq:Gid-path}
+\begin{aligned}
+\inner{G\delta X_T}{\delta Y_T}-\inner{G\,\delta\xi_0}{\delta Y_0}
+&=\int_0^T\inner{\lambda\delta b_t+q^b_t}{\Gstar\delta Y_{t-}}\,\diff t\\
+&+\int_0^T\inner{\lambda\delta\sigma_t+q^\sigma_t}{\Gstar\delta Z_t}_F\,\diff t\\
+&+\int_0^T\!\!\int_E\inner{\lambda\delta h_t(e)+q^h_t(e)}{\Gstar\delta U_t(e)}\,\nu(\diff e)\diff t\\
+&+\int_0^T\inner{-\lambda\delta f_t-q^f_t}{G\delta X_{t-}}\,\diff t\\
+&+\int_0^T\inner{G\delta X_{t-}}{\delta Z_t\,\diff W_t}\\
+&+\int_0^T\inner{G(\lambda\delta\sigma_t+q^\sigma_t)\,\diff W_t}{\delta Y_{t-}}\\
+&+\int_0^T\!\!\int_E\inner{G\delta X_{t-}}{\delta U_t(e)}\,\Nt(\diff t,\diff e)\\
+&+\int_0^T\!\!\int_E\inner{G(\lambda\delta h_t+q^h_t)(e)}{\delta Y_{t-}}\,\Nt(\diff t,\diff e)\\
+&+\int_0^T\!\!\int_E\inner{G(\lambda\delta h_t+q^h_t)(e)}{\delta U_t(e)}\,\Nt(\diff t,\diff e) .
+\end{aligned}
+\end{equation}
+Of the last five terms of \eqref{eq:Gid-path}, the first four are bounded by BDG and
+Cauchy--Schwarz, with \eqref{eq:compid} in the jump terms:
+\begin{equation}\label{eq:bdg4}
+\left\{\;
+\begin{aligned}
+&\E\sup_{t\le T}\Big|\int_0^t\inner{G\delta X_{s-}}{\delta Z_s\,\diff W_s}\Big|\\
+&\hspace{0.14\linewidth}\le c_{\mathrm{BDG}}\|G\|\big(\E\sup_{t\le T}|\delta X_t|^2\big)^{1/2}
+\Big(\E\!\int_0^T\!|\delta Z_t|_F^2\,\diff t\Big)^{1/2},\\
+&\E\sup_{t\le T}\Big|\int_0^t\inner{G(\lambda\delta\sigma_s+q^\sigma_s)\,\diff W_s}{\delta Y_{s-}}\Big|\\
+&\hspace{0.14\linewidth}\le c_{\mathrm{BDG}}\|G\|\big(\E\sup_{t\le T}|\delta Y_t|^2\big)^{1/2}
+\Big(\E\!\int_0^T\!|\lambda\delta\sigma_t+q^\sigma_t|_F^2\,\diff t\Big)^{1/2},\\
+&\E\sup_{t\le T}\Big|\int_0^t\!\!\int_E\inner{G\delta X_{s-}}{\delta U_s(e)}\,\Nt(\diff s,\diff e)\Big|\\
+&\hspace{0.14\linewidth}\le c_{\mathrm{BDG}}\|G\|\big(\E\sup_{t\le T}|\delta X_t|^2\big)^{1/2}
+\Big(\E\!\int_0^T\!\Lnorm{\delta U_t}^2\,\diff t\Big)^{1/2},\\
+&\E\sup_{t\le T}\Big|\int_0^t\!\!\int_E\inner{G(\lambda\delta h_s+q^h_s)(e)}{\delta Y_{s-}}\,\Nt(\diff s,\diff e)\Big|\\
+&\hspace{0.14\linewidth}\le c_{\mathrm{BDG}}\|G\|\big(\E\sup_{t\le T}|\delta Y_t|^2\big)^{1/2}
+\Big(\E\!\int_0^T\!\Lnorm{\lambda\delta h_t+q^h_t}^2\,\diff t\Big)^{1/2} .
+\end{aligned}
+\right.
+\end{equation}
+
+Since $\Theta^1-\Theta^2\in\HH$,
+\[
+\E\sup_{t\le T}|\delta X_t|^2+\E\sup_{t\le T}|\delta Y_t|^2
++\E\!\int_0^T\!\big(|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t
+=\|\Theta^1-\Theta^2\|_{\HH}^2<\infty ,
+\]
+and by the computation of \eqref{eq:coeffdiff}, with the forcings square-integrable,
+\[
+\E\!\int_0^T\!\big(|\lambda\delta\sigma_t+q^\sigma_t|_F^2
++\Lnorm{\lambda\delta h_t+q^h_t}^2\big)\diff t<\infty .
+\]
+The four suprema in \eqref{eq:bdg4} are therefore integrable, so the supremum criterion
+applies to those four local martingales. The fifth has predictable
+integrand, and by Cauchy--Schwarz
+\[
+\begin{aligned}
+&\E\!\int_0^T\!\!\int_E\big|\inner{\lambda\delta h_t(e)+q^h_t(e)}{\Gstar\delta U_t(e)}\big|\,\nu(\diff e)\diff t\\
+&\hspace{0.26\linewidth}\le\|G\|\Big(\E\!\int_0^T\!\Lnorm{\lambda\delta h_t+q^h_t}^2\diff t\Big)^{1/2}
+\Big(\E\!\int_0^T\!\Lnorm{\delta U_t}^2\diff t\Big)^{1/2}\\
+&\hspace{0.26\linewidth}<\infty .
+\end{aligned}
+\]
+Hence \eqref{eq:zeromean} applies, and all five terms have zero expectation.
+
+Taking expectations and dropping the left limits in the drift multipliers (the
+$\diff t$-integral convention above) reduces \eqref{eq:Gid-path} to
+\begin{multline}\label{eq:Gid}
+\E\inner{G\delta X_T}{\delta Y_T}-\E\inner{G\,\delta\xi_0}{\delta Y_0}
+=\E\!\int_0^T\!\Big[\inner{\lambda\delta b_t+q^b_t}{\Gstar\delta Y_t}
++\inner{\lambda\delta\sigma_t+q^\sigma_t}{\Gstar\delta Z_t}_F\\
++\!\int_E\!\inner{\lambda\delta h_t(e)+q^h_t(e)}{\Gstar\delta U_t(e)}\nu(\diff e)
++\inner{-\lambda\delta f_t-q^f_t}{G\delta X_t}\Big]\diff t .
+\end{multline}
+
+\emph{Step 2 (insertion of monotonicity).} In the $h$-channel $\delta h_t$ is evaluated at the
+predictable tuples $(\Theta^{k,-}_t,\mu^{k,-}_t)$, which agree with $(\Theta^k_t,\mu^k_t)$
+for $\diff t$-a.e.\ $t$ by Lemma~\ref{lem:lawflow}. Assumption~\ref{ass:mono}, applied at
+the common input pair $(\Theta^1_t,\mu^1_t),(\Theta^2_t,\mu^2_t)$, therefore bounds the
+unperturbed part of the integrand of \eqref{eq:Gid}:
+\begin{equation}\label{eq:intmono}
+\begin{aligned}
+&\lambda\E\Big[\inner{\delta b_t}{\Gstar\delta Y_t}+\inner{\delta\sigma_t}{\Gstar\delta Z_t}_F
++\!\int_E\!\inner{\delta h_t(e)}{\Gstar\delta U_t(e)}\nu(\diff e)+\inner{-\delta f_t}{G\delta X_t}\Big]\\
+&\qquad\le-\lambda\beta_1\E\big[|\Gstar\delta Y_t|^2+|\Gstar\delta Z_t|_F^2+\Lnorm{\Gstar\delta U_t}^2\big]
+-\lambda\beta_2\E|G\delta X_t|^2 .
+\end{aligned}
+\end{equation}
+
+The terminal side of \eqref{eq:Gid} is bounded by the terminal monotonicity of
+Assumption~\ref{ass:mono}:
+\begin{equation}\label{eq:termmono}
+\begin{aligned}
+\E\inner{G\delta X_T}{\delta Y_T}
+&=\lambda\E\inner{G\delta X_T}{\delta g_T}+\E\inner{G\delta X_T}{q^g_T}\\
+&\ge\lambda\alpha\E|G\delta X_T|^2-|\E\inner{G\delta X_T}{q^g_T}| .
+\end{aligned}
+\end{equation}
+Recall
+\[
+P=\E|\delta\xi_0|^2+\E|q^g_T|^2
++\E\!\int_0^T\!\big(|q^b_t|^2+|q^\sigma_t|_F^2+\Lnorm{q^h_t}^2+|q^f_t|^2\big)\diff t ,
+\]
+and set
+\[
+\begin{aligned}
+\mathcal N'&:=\E|\delta X_T|^2+\E|\delta Y_0|^2
++\E\!\int_0^T\!\big(|\delta X_t|^2+|\delta Y_t|^2+|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t ,\\
+\mathcal K&:=\eta\,\mathcal N'+\tfrac{\|G\|^2}{4\eta}\,P ,\qquad \eta>0 .
+\end{aligned}
+\]
+Inserting \eqref{eq:intmono} and \eqref{eq:termmono} into \eqref{eq:Gid} gives
+\[
+\begin{aligned}
+&\lambda\alpha\E|G\delta X_T|^2-|\E\inner{G\delta X_T}{q^g_T}|-\E\inner{G\,\delta\xi_0}{\delta Y_0}\\
+&\qquad\le-\lambda\beta_1\E\!\int_0^T\!\big[|\Gstar\delta Y_t|^2+|\Gstar\delta Z_t|_F^2+\Lnorm{\Gstar\delta U_t}^2\big]\diff t
+-\lambda\beta_2\E\!\int_0^T\!|G\delta X_t|^2\diff t\\
+&\qquad+\E\!\int_0^T\!\Big(\inner{q^b_t}{\Gstar\delta Y_t}+\inner{q^\sigma_t}{\Gstar\delta Z_t}_F
++\inner{-q^f_t}{G\delta X_t}\\
+&\qquad\qquad\quad+\int_E\inner{q^h_t(e)}{\Gstar\delta U_t(e)}\,\nu(\diff e)\Big)\diff t .
+\end{aligned}
+\]
+Rearranging, and applying Young's inequality with $|\Gstar v|\le\|G\|\,|v|$ and
+$|Gv|\le\|G\|\,|v|$, gives
+\begin{equation}\label{eq:coerc}
+\begin{aligned}
+&\lambda\alpha\E|G\delta X_T|^2+\lambda\beta_2\E\!\int_0^T\!|G\delta X_t|^2\diff t\\
+&\quad+\lambda\beta_1\E\!\int_0^T\!\big[|\Gstar\delta Y_t|^2+|\Gstar\delta Z_t|_F^2+\Lnorm{\Gstar\delta U_t}^2\big]\diff t\\
+&\qquad\le|\E\inner{G\,\delta\xi_0}{\delta Y_0}|+|\E\inner{G\delta X_T}{q^g_T}|
++\E\!\int_0^T\!\big(|\inner{q^b}{\Gstar\delta Y}|+|\inner{q^\sigma}{\Gstar\delta Z}_F|\big)\diff t\\
+&\qquad+\E\!\int_0^T\!\Bigl(\Bigl|\int_E\inner{q^h(e)}{\Gstar\delta U(e)}\,\nu(\diff e)\Bigr|
++|\inner{q^f}{G\delta X}|\Bigr)\diff t\\
+&\qquad\le\mathcal K .
+\end{aligned}
+\end{equation}
+Each coercive block present on the left of \eqref{eq:coerc} is therefore at most
+$\mathcal K$.
+
+\emph{Step 3 (forward estimate).} Fix $t\le T$ and integrate \eqref{eq:dX} over $[0,s]$,
+$s\le t$, with $\delta X_0=\delta\xi_0$. Squaring, taking the supremum over $s$ and
+expectations, Cauchy--Schwarz on the drift, BDG on the two martingales and
+Assumption~\ref{ass:lip} give
+\[
+\begin{aligned}
+\E\sup_{s\le t}|\delta X_s|^2
+&\le C\Big(\E|\delta\xi_0|^2+\E\!\int_0^t\!\big(|\delta b_s|^2+|\delta\sigma_s|_F^2+\Lnorm{\delta h_s}^2\big)\diff s+P\Big)\\
+&\le C\Big(\E|\delta\xi_0|^2+\E\!\int_0^t\!\big(|\delta X_s|^2+|\delta Y_s|^2+|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s+P\Big)\\
+&\le C\Big(\int_0^t\!\E\sup_{r\le s}|\delta X_r|^2\,\diff s
++\E\!\int_0^T\!\big(|\delta Y_s|^2+|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s+P\Big) .
+\end{aligned}
+\]
+The map $t\mapsto\E\sup_{s\le t}|\delta X_s|^2$ is nondecreasing and finite, since
+$\Theta^1-\Theta^2\in\HH$, so Gr\"onwall gives
+\begin{equation}\label{eq:fwd}
+\E\sup_{t\le T}|\delta X_t|^2\le C\Big(\E\!\int_0^T\!\big(|\delta Y_t|^2+|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t+P\Big).
+\end{equation}
+
+\emph{Step 4 (backward estimate).} It\^o's formula applied to $e^{\kappa t}|\delta Y_t|^2$
+gives, for $\kappa>0$,
+\begin{equation}\label{eq:bwdito}
+\begin{aligned}
+&\E\,e^{\kappa t}|\delta Y_t|^2
++\E\!\int_t^T\!e^{\kappa s}\big(\kappa|\delta Y_s|^2+|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s\\
+&\qquad\le\E\,e^{\kappa T}|\lambda\delta g_T+q^g_T|^2
++2\,\E\!\int_t^T\!e^{\kappa s}\inner{\delta Y_s}{\lambda\delta f_s+q^f_s}\diff s .
+\end{aligned}
+\end{equation}
+By Assumption~\ref{ass:lip}, the coupling bound \eqref{eq:coupling}, and Young's
+inequality, for every $\varepsilon>0$,
+\begin{equation}\label{eq:bwdyoung}
+2\,\E\inner{\delta Y_s}{\lambda\delta f_s+q^f_s}
+\le \frac C\varepsilon\,\E|\delta Y_s|^2+\varepsilon\,\E\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)
++\frac C\varepsilon\,\E\big(|\delta X_s|^2+|q^f_s|^2\big),
+\end{equation}
+with $C$ independent of $\varepsilon$.
+
+Insert \eqref{eq:bwdyoung} in \eqref{eq:bwdito}:
+\[
+\begin{aligned}
+&\E\,e^{\kappa t}|\delta Y_t|^2
++\E\!\int_t^T\!e^{\kappa s}\Big[\big(\kappa-\tfrac{C}{\varepsilon}\big)|\delta Y_s|^2
++(1-\varepsilon)\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\Big]\diff s\\
+&\qquad\le\E\,e^{\kappa T}|\lambda\delta g_T+q^g_T|^2
++\tfrac{C}{\varepsilon}\,\E\!\int_t^T\!e^{\kappa s}\big(|\delta X_s|^2+|q^f_s|^2\big)\diff s .
+\end{aligned}
+\]
+Take $\varepsilon<1$ and $\kappa>C/\varepsilon$. The $\delta Y$-integral on the left is then
+nonnegative and may be dropped, and the weights satisfy $1\le e^{\kappa s}\le e^{\kappa T}$
+on $[0,T]$, so
+\[
+\E|\delta Y_t|^2+\E\!\int_t^T\!\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s
+\le C\Big(\E|\lambda\delta g_T+q^g_T|^2
++\E\!\int_t^T\!\big(|\delta X_s|^2+|q^f_s|^2\big)\diff s\Big).
+\]
+With $\E|\delta g_T|^2\le C\,\E|\delta X_T|^2$, the forcings in $P$, and
+$\int_t^T\le\int_0^T$ on the right, the bound no longer depends on $t$. Taking the
+supremum over $t$ in the first term on the left and $t=0$ in the second, there remains
+\begin{equation}\label{eq:wgt}
+\sup_{t\le T}\E|\delta Y_t|^2
++\E\!\int_0^T\!\big(|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t
+\le C\Big(\E|\delta X_T|^2+\E\!\int_0^T\!|\delta X_t|^2\diff t+P\Big).
+\end{equation}
+Writing \eqref{eq:dY} forward from $\delta Y_0$, BDG, Cauchy--Schwarz,
+Assumption~\ref{ass:lip} with the coupling bound \eqref{eq:coupling}, and \eqref{eq:wgt} give
+\[
+\begin{aligned}
+\E\sup_{t\le T}|\delta Y_t|^2
+&\le C\Big(\E|\delta Y_0|^2+\E\!\int_0^T\!|\lambda\,\delta f_s+q^f_s|^2\diff s
++\E\!\int_0^T\!\big(|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s\Big)\\
+&\le C\Big(\E|\delta Y_0|^2
++\E\!\int_0^T\!\big(|\delta X_s|^2+|\delta Y_s|^2+|\delta Z_s|_F^2+\Lnorm{\delta U_s}^2\big)\diff s+P\Big)\\
+&\le C\Big(\E|\delta X_T|^2+\E\!\int_0^T\!|\delta X_t|^2\diff t+P\Big) .
+\end{aligned}
+\]
+The first term of \eqref{eq:wgt} may therefore be replaced by
+$\E\sup_{t\le T}|\delta Y_t|^2$:
+\begin{equation}\label{eq:bwd}
+\E\sup_{t\le T}|\delta Y_t|^2+\E\!\int_0^T\!\big(|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t
+\le C\Big(\E|\delta X_T|^2+\E\!\int_0^T\!|\delta X_t|^2\diff t+P\Big).
+\end{equation}
+
+\emph{Step 5 (rank-case closure, then absorb).} Write
+\[
+\mathcal N:=\E\sup_{t\le T}|\delta X_t|^2+\E\sup_{t\le T}|\delta Y_t|^2+\E\!\int_0^T\!\big(|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t
+\]
+so that \eqref{eq:contpert} is the claim $\mathcal N\le C_B P$. Then
+$\mathcal N'\le(1+2T)\mathcal N$, and by
+\eqref{eq:coerc} each coercive block on its left is at most $\mathcal K$.
+
+\emph{Case A ($n\ge m$; active when $m<n$, where $\beta_1>0$).} As $\Gstar$ is injective,
+Assumption~\ref{ass:G} gives
+\[
+|\delta Y|^2\le c_G|\Gstar\delta Y|^2,\qquad
+|\delta Z|_F^2\le c_G|\Gstar\delta Z|_F^2,\qquad
+\Lnorm{\delta U}^2\le c_G\Lnorm{\Gstar\delta U}^2 .
+\]
+With $\beta_1>0$ and $\lambda\ge\underline\lambda$, the $\beta_1$-block of \eqref{eq:coerc} yields
+\[
+\E\!\int_0^T\!\big(|\delta Y_t|^2+|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t\le\bigl(c_G/(\underline\lambda\beta_1)\bigr)\mathcal K.
+\]
+Inserting this in \eqref{eq:fwd}, and the result in \eqref{eq:bwd},
+\[
+\begin{aligned}
+\E\sup_{t\le T}|\delta X_t|^2&\le C(\mathcal K+P),\\
+\E\sup_{t\le T}|\delta Y_t|^2
++\E\!\int_0^T\!\big(|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t&\le C(\mathcal K+P),
+\end{aligned}
+\]
+so $\mathcal N\le C(\mathcal K+P)$.
+
+\emph{Case B ($m\ge n$; active when $m>n$, where $\alpha,\beta_2>0$).} As $G$ is injective,
+Assumption~\ref{ass:G} gives
+\[
+|\delta X|^2\le c_G|G\delta X|^2 .
+\]
+With $\alpha,\beta_2>0$ and $\lambda\ge\underline\lambda$, the $\alpha,\beta_2$-blocks of
+\eqref{eq:coerc} yield
+\[
+\E|\delta X_T|^2+\E\!\int_0^T\!|\delta X_t|^2\diff t\le\bigl(2c_G/(\underline\lambda\min\{\alpha,\beta_2\})\bigr)\mathcal K.
+\]
+Inserting this in \eqref{eq:bwd}, and the result in \eqref{eq:fwd},
+\[
+\begin{aligned}
+\E\sup_{t\le T}|\delta Y_t|^2
++\E\!\int_0^T\!\big(|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t&\le C(\mathcal K+P),\\
+\E\sup_{t\le T}|\delta X_t|^2&\le C(\mathcal K+P),
+\end{aligned}
+\]
+so again $\mathcal N\le C(\mathcal K+P)$.
+
+When $m=n$, both $G,\Gstar$ are injective, so Case~A is available whenever $\beta_1>0$ and
+Case~B whenever $\alpha,\beta_2>0$; Assumption~\ref{ass:mono} provides at least one of the
+two, and when both are available we use whichever gives the smaller bound. In every
+case
+\[
+\mathcal N\le C\Big(\eta\mathcal N'+\tfrac{\|G\|^2}{4\eta} P+P\Big)\le C\eta(1+2T)\mathcal N+C\,P;
+\]
+choosing $\eta$
+small enough that $C\eta(1+2T)\le\tfrac12$ absorbs the $\mathcal N$-term (finite,
+since $\Theta^1-\Theta^2\in\HH$) and gives
+$\mathcal N\le C\,P$, which is \eqref{eq:contpert} with $C_B:=C$.
+\end{proof}
+
+\subsection{Stability}\label{sub:stabuniq}
+
+\begin{proof}[Proof of Theorem~\ref{thm:stab}]
+Take the system-$1$ coefficients $(b^1,\sigma^1,h^1,f^1,g^1)$ as the baseline and read
+$\Theta^2$ as a forced solution of that system: $\Theta^2$ solves \eqref{eq:forced} at
+$\lambda=1$ with
+\[
+q^{\psi,2}:=-(\delta\psi),\qquad \psi\in\{b,\sigma,h,f\},\qquad
+q^{g,2}_T:=-\widehat{\delta g}_T ,
+\]
+while $\Theta^1$ solves it with zero forcing.
+
+These form a square-integrable forcing for \eqref{eq:forced}: as differences of the
+coefficient processes \eqref{eq:coefmeas}, the $q^{\psi,2}$ inherit their measurability,
+and they are square-integrable by \eqref{eq:coeffint} applied to each system with its own
+constants; $q^{g,2}_T\in L^2(\Omega,\F_T;\R^m)$ by \eqref{eq:lipT} with $X^2_T\in L^2$.
+
+Since $q^1=0$, the difference $\delta q=q^1-q^2$ has $\delta q^\psi=(\delta\psi)$ and
+$\delta q^g_T=\widehat{\delta g}_T$, so Lemma~\ref{lem:pert} at parameter $\lambda=1$ and
+lower bound $\underline\lambda=1$, applied to
+system~$1$, gives
+\begin{multline*}
+\E\sup_{t\le T}|\delta X_t|^2+\E\sup_{t\le T}|\delta Y_t|^2
++\E\!\int_0^T\!\big(|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t\\
+\le C_B\Big(\E|\delta\xi_0|^2+\E\big|\widehat{\delta g}_T\big|^2\\
++\E\!\int_0^T\!\big(|(\delta b)(t)|^2+|(\delta\sigma)(t)|_F^2
++\Lnorm{(\delta h)(t)}^2+|(\delta f)(t)|^2\big)\diff t\Big),
+\end{multline*}
+which is \eqref{eq:stab} with $C_{\mathrm{stab}}:=C_B$.
+\end{proof}
+
+\subsection{The continuation step}
+
+Taking identical sources and the common initial datum in Lemma~\ref{lem:pert} (at
+lower bound $\underline\lambda=\lambda_*$) yields
+uniqueness at each $\lambda\in[\lambda_*,1]$; Lemma~\ref{lem:small} gives it on
+$[0,\lambda_*]$. It remains to prove existence up to $\lambda=1$.
+
+\begin{lemma}[Continuation]\label{lem:cont}
+Let Assumptions~\ref{ass:integ}--\ref{ass:mono} hold, and let $\lambda_*$ be the
+small-coupling threshold of Lemma~\ref{lem:small}. There is $\zeta_0>0$, depending only on
+$T$, $L$, $\|G\|$, $c_G$, $\alpha$, $\beta_1$, $\beta_2$, $\lambda_*$ and $c_{\mathrm{BDG}}$, such that: if
+$\lambda_0\in[\lambda_*,1]$ and $\mathsf{WP}(\lambda_0)$ holds, then
+$\mathsf{WP}(\lambda_0+\zeta)$ holds for every $\zeta\in[0,\zeta_0]$ with $\lambda_0+\zeta\le1$.
+\end{lemma}
+
+\begin{proof}
+Fix $\lambda_0$ with $\mathsf{WP}(\lambda_0)$, set $\lambda_1=\lambda_0+\zeta\le1$, and
+fix a forcing $q$ for the $\lambda_1$-system. For a trial $\Theta\in\HH$ define the
+augmented forcing
+\[
+R^\psi(\Theta):=q^\psi+\zeta\,\psi(\cdot,\Theta,\mu^\Theta),\ \ \psi\in\{b,\sigma,h,f\},
+\qquad R^g_T(\Theta):=q^g_T+\zeta\,g(X_T,\Law(X_T)).
+\]
+Then $R(\Theta)$ is
+again a square-integrable forcing for \eqref{eq:forced}. Its integrability follows from
+\eqref{eq:coeffint} and the Lipschitz/coupling bounds, and its $h$-channel is evaluated at
+the predictable tuple $(\Theta^-,\mu^{\Theta,-})$, hence predictable.
+Since $\mathsf{WP}(\lambda_0)$ holds, let $\Phi(\Theta):=\bar\Theta$ be the unique
+solution in $\HH$ of the forced $\lambda_0$-system with forcing $R(\Theta)$.
+
+For $\Theta^1,\Theta^2$, the outputs $\Phi(\Theta^k)$ solve the same $\lambda_0$-system
+with sources $R(\Theta^1),R(\Theta^2)$; $q$ cancels in the difference, leaving
+\[
+R^\psi(\Theta^1)-R^\psi(\Theta^2)=\zeta[\psi(\cdot,\Theta^1,\mu^{\Theta^1})-\psi(\cdot,\Theta^2,\mu^{\Theta^2})].
+\]
+By Lemma~\ref{lem:pert} at parameter $\lambda_0$ and lower bound
+$\underline\lambda=\lambda_*$, and the
+Lipschitz bound of Assumption~\ref{ass:lip},
+\[
+\begin{aligned}
+\|\Phi(\Theta^1)-\Phi(\Theta^2)\|_{\HH}^2
+&\le C_B\!\sum_\psi\E\!\int_0^T|R^\psi(\Theta^1)-R^\psi(\Theta^2)|^2\diff t
++C_B\,\E|R^g_T(\Theta^1)-R^g_T(\Theta^2)|^2\\
+&\le C_B\,C\,\zeta^2\,\|\Theta^1-\Theta^2\|_{\HH}^2 ,\qquad C=C(T,L) .
+\end{aligned}
+\]
+Put $\zeta_0:=\min\{1,(2\sqrt{C_BC})^{-1}\}$, so that for $\zeta\le\zeta_0$
+\[
+\|\Phi(\Theta^1)-\Phi(\Theta^2)\|_{\HH}\le\tfrac12\,\|\Theta^1-\Theta^2\|_{\HH} .
+\]
+By the Banach fixed-point theorem $\Phi$ has a unique fixed point $\Theta$, at which
+$R^\psi(\Theta)=q^\psi+\zeta\,\psi(\cdot,\Theta,\mu)$. Since $\lambda_0+\zeta=\lambda_1$,
+\[
+\begin{aligned}
+\lambda_0\,\psi(\cdot,\Theta,\mu)+R^\psi(\Theta)&=\lambda_1\,\psi(\cdot,\Theta,\mu)+q^\psi ,
+\qquad\psi\in\{b,\sigma,h,f\},\\
+\lambda_0\,g(X_T,\Law(X_T))+R^g_T(\Theta)&=\lambda_1\,g(X_T,\Law(X_T))+q^g_T ,
+\end{aligned}
+\]
+so $\Theta$ solves the forced $\lambda_1$-system \eqref{eq:forced} with forcing $q$.
+
+Any solution of the $\lambda_1$-system is a fixed point of the same $\Phi$, which has only
+one, so the solution is unique. Hence $\mathsf{WP}(\lambda_1)$, and $\zeta_0$ is
+independent of $\lambda_0$ and $q$.
+\end{proof}
+
+\subsection{Proof of Theorem~\texorpdfstring{\ref{thm:cwp}}{3.5}}\label{sub:proofcwp}
+
+\begin{proof}
+By Lemma~\ref{lem:small}, $\mathsf{WP}(\lambda)$ holds for $\lambda\in[0,\lambda_*]$. With
+$\zeta_0$ from Lemma~\ref{lem:cont}, set
+\[
+\lambda_k:=\min\{\lambda_*+k\zeta_0,\,1\},\qquad k\ge0 ,
+\]
+so that $\lambda_0=\lambda_*$, $\lambda_{k+1}-\lambda_k\le\zeta_0$ and $\lambda_k=1$ once
+$k\ge\lceil(1-\lambda_*)/\zeta_0\rceil$. Lemma~\ref{lem:cont} carries
+$\mathsf{WP}(\lambda_k)$ to $\mathsf{WP}(\lambda_{k+1})$ at every step, so
+$\mathsf{WP}(1)$ holds; taking $q\equiv0$ there gives a unique solution of
+\eqref{eq:mvfbsdej} in $\HH$.
+\end{proof}
+

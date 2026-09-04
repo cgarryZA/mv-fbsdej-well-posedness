@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the paper below."
+title: "Well-posedness of fully coupled McKean–Vlasov FBSDEs with jumps under full-tuple law dependence"
+authors:
+  - family-names: Feng
+    given-names: Chunrong
+    affiliation: "Department of Mathematical Sciences, Durham University"
+  - family-names: Garry
+    given-names: Christian
+    affiliation: "Department of Mathematical Sciences, Durham University"
+    email: christian.t.garry@durham.ac.uk
+repository-code: "https://github.com/cgarryZA/mv-fbsdej-well-posedness"
+url: "https://arxiv.org/abs/2608.23203"
+preferred-citation:
+  type: article
+  title: "Well-posedness of fully coupled McKean–Vlasov FBSDEs with jumps under full-tuple law dependence"
+  authors:
+    - family-names: Feng
+      given-names: Chunrong
+    - family-names: Garry
+      given-names: Christian
+  year: 2026
+  url: "https://arxiv.org/abs/2608.23203"
+  identifiers:
+    - type: other
+      value: "arXiv:2608.23203"
+      description: "arXiv preprint identifier"

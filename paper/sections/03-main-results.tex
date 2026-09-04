@@ -1,0 +1,346 @@
+\PaperPageBreak
+\section{Main results}\label{sec:main}
+
+\PaperRunIn{Solution space}
+Write
+\[
+\begin{aligned}
+\Lsp{\R^j}&:=\bigl\{V\in\R^j\ \text{c\`adl\`ag adapted}\ :\ \E\!\int_0^T\!|V_t|^2\,\diff t<\infty\bigr\},\\
+\Ssp{\R^j}&:=\bigl\{V\in\R^j\ \text{c\`adl\`ag adapted}\ :\ \E\sup_{0\le t\le T}|V_t|^2<\infty\bigr\},\\
+\HW(0,T;\R^{m\times d})&:=\Bigl\{Z\in\R^{m\times d}\ \text{predictable}\ :\ \E\!\int_0^T\!|Z_t|_F^2\,\diff t<\infty\Bigr\},\\
+\HN(0,T;L^2(\nu;\R^m))&:=\Bigl\{U\in L^2(\nu;\R^m)\ \text{predictable}\ :\ \E\!\int_0^T\!\Lnorm{U_t}^2\,\diff t<\infty\Bigr\}.
+\end{aligned}
+\]
+Set
+\[
+\begin{aligned}
+\HH&:=\Ssp{\R^n}\times\Ssp{\R^m}\times\HW(0,T;\R^{m\times d})\times\HN(0,T;L^2(\nu;\R^m)),\\
+\Hweak&:=\Lsp{\R^n}\times\Lsp{\R^m}\times\HW(0,T;\R^{m\times d})\times\HN(0,T;L^2(\nu;\R^m)),
+\end{aligned}
+\]
+with squared norm
+\[
+\|\Theta\|_{\HH}^2:=\E\sup_{t\le T}|X_t|^2+\E\sup_{t\le T}|Y_t|^2
++\E\!\int_0^T\!\big(|Z_t|_F^2+\Lnorm{U_t}^2\big)\diff t.
+\]
+The elements are equivalence classes: c\`adl\`ag components are identified when
+indistinguishable, $Z$-components when they agree $\diff t\otimes\diff\Prob$-a.e., and
+$U$-components when they agree $\diff t\otimes\diff\Prob\otimes\nu$-a.e. Under this
+identification $\|\cdot\|_{\HH}$ is a norm rather than a seminorm, and
+$(\HH,\|\cdot\|_{\HH})$ is a Banach space. Since
+$\E\int_0^T|V_t|^2\,\diff t\le T\,\E\sup_{t\le T}|V_t|^2$, the inclusion
+$\HH\subset\Hweak$ holds.
+
+A \emph{solution} of \eqref{eq:mvfbsdej} is a tuple $\Theta=(X,Y,Z,U)\in\HH$ satisfying both
+identities of \eqref{eq:mvfbsdej} almost surely for every $t\in[0,T]$, with $h$ evaluated at
+the predictable tuple $(\Theta^-_t,\mu^-_t)$. Both sides of each identity are c\`adl\`ag in
+$t$, so the exceptional null set may be taken independent of $t$.
+
+The stability and uniqueness theorems below rest on comparing solutions of
+\eqref{eq:mvfbsdej} under two coefficient systems, indexed by $k=1,2$. We write $\delta\,{\cdot}={\cdot}^1-{\cdot}^2$, with
+$\mu^k_t:=\Law(\Theta^k_t)$, and evaluate every coefficient difference along solution~$2$:
+\[
+\begin{aligned}
+(\delta\psi)(t)&:=\psi^1(t,\Theta^2_t,\mu^2_t)-\psi^2(t,\Theta^2_t,\mu^2_t),
+&&\psi\in\{b,\sigma,f\},\\
+(\delta h)(t)&:=h^1(t,\Theta^{2,-}_t,\cdot,\mu^{2,-}_t)-h^2(t,\Theta^{2,-}_t,\cdot,\mu^{2,-}_t),\\
+\widehat{\delta g}_T&:=g^1\big(X^2_T,\Law(X^2_T)\big)-g^2\big(X^2_T,\Law(X^2_T)\big).
+\end{aligned}
+\]
+
+\begin{theorem}[Stability under coefficient and data perturbation]\label{thm:stab}
+Let the coefficient system $(b^1,\sigma^1,h^1,f^1,g^1)$, with initial datum $\xi_0^1$,
+satisfy Assumptions~\ref{ass:integ}--\ref{ass:mono} with constants $L,\alpha,\beta_1,\beta_2$
+and coupling matrix $G$; let $(b^2,\sigma^2,h^2,f^2,g^2)$, with initial datum $\xi_0^2$,
+satisfy Assumptions~\ref{ass:integ}--\ref{ass:lip} with its own Lipschitz constant; and let
+$\Theta^k\in\HH$ solve \eqref{eq:mvfbsdej} for system~$k$. Then
+\begin{equation}\label{eq:stab}
+\begin{split}
+&\E\sup_{t\le T}|\delta X_t|^2+\E\sup_{t\le T}|\delta Y_t|^2
++\E\!\int_0^T\!\big(|\delta Z_t|_F^2+\Lnorm{\delta U_t}^2\big)\diff t\\
+&\quad\le C_{\mathrm{stab}}\Big(\E|\delta\xi_0|^2+\E\big|\widehat{\delta g}_T\big|^2\\
+&\qquad\qquad\quad+\E\!\int_0^T\!\big(|(\delta b)(t)|^2+|(\delta\sigma)(t)|_F^2
++\Lnorm{(\delta h)(t)}^2+|(\delta f)(t)|^2\big)\diff t\Big),
+\end{split}
+\end{equation}
+where $C_{\mathrm{stab}}$ depends only on $T,L,\|G\|,c_G,\alpha,\beta_1,\beta_2$ and the universal
+Burkholder--Davis--Gundy (BDG) constant $c_{\mathrm{BDG}}$. The dependence is on
+system~$1$ alone: system~$2$ enters \eqref{eq:stab} only through its right-hand side.
+Neither the dimensions $n,m,d$ nor the total mass $\nu(E)$ appears, so the estimate is
+uniform over the infinite-activity regime.
+\end{theorem}
+\noindent The proof, a reduction to Lemma~\ref{lem:pert} at $\lambda=1$, is in
+Section~\ref{sub:stabuniq}.
+
+\noindent If system~$2$ also satisfies Assumptions~\ref{ass:G}--\ref{ass:mono}, with its
+own coupling matrix and constants, exchanging the roles gives the companion bound with the
+differences evaluated along solution~$1$ and the constant built from system~$2$'s data.
+When the two systems share the four interior coefficients, the bound gives continuous
+dependence on the initial and terminal data. More minimally, the hypotheses on system~$2$
+serve only to make the right-hand side of \eqref{eq:stab} finite: the estimate holds
+whenever the displayed differences are square-integrable.
+
+\begin{remark}[Solution class]\label{rem:cwp-class}
+Let $\Theta=(X,Y,Z,U)\in\Hweak$ satisfy \eqref{eq:mvfbsdej}. Then $\Theta\in\HH$. Indeed, the coefficients evaluated along $\Theta$ lie in
+$L^2(\diff t\otimes\diff\Prob)$ by Assumptions~\ref{ass:integ}--\ref{ass:lip}, so Doob/BDG
+applied to the forward equation gives
+\[
+\E\sup_{t\le T}|X_t|^2<\infty ,
+\]
+whence $g(X_T,\Law(X_T))\in L^2$ by Assumption~\ref{ass:lip}; taking $t=0$ in the backward
+equation gives $Y_0\in L^2$. Subtracting that identity from the backward
+equation puts $Y$ in forward form,
+\[
+Y_t=Y_0-\int_0^t f(s,\Theta_s,\mu_s)\,\diff s+\int_0^t Z_s\,\diff W_s
++\int_0^t\!\!\int_E U_s(e)\,\Nt(\diff s,\diff e),
+\]
+so Cauchy--Schwarz on the drift and Doob/BDG on the two martingales give
+\[
+\E\sup_{t\le T}|Y_t|^2<\infty .
+\]
+\end{remark}
+
+\begin{theorem}[Uniqueness]\label{thm:uniq}
+Under Assumptions~\ref{ass:lip}--\ref{ass:mono}, the system \eqref{eq:mvfbsdej} has at
+most one solution. More precisely, if $\Theta^1,\Theta^2\in\Hweak$ satisfy
+\eqref{eq:mvfbsdej} with the same initial condition, then $\Theta^1=\Theta^2$. Furthermore,
+$\Theta^1-\Theta^2\in\HH$.
+\end{theorem}
+\begin{proof}
+Let $\Theta^k=(X^k,Y^k,Z^k,U^k)$, $k=1,2$, be two such tuples, and write
+$\delta\Theta_t:=\Theta^1_t-\Theta^2_t$, $\mu^k_t:=\Law(\Theta^k_t)$ and, for
+$\psi\in\{b,\sigma,h,f\}$,
+\[
+\delta\psi_t:=\psi(t,\Theta^1_t,\mu^1_t)-\psi(t,\Theta^2_t,\mu^2_t).
+\]
+
+By assumption
+\[
+\E\!\int_0^T\!\big(|X^k_t|^2+|Y^k_t|^2+|Z^k_t|_F^2+\Lnorm{U^k_t}^2\big)\diff t<\infty,
+\qquad k=1,2,
+\]
+so by Fubini
+\[
+\E|X^k_t|^2+\E|Y^k_t|^2+\E|Z^k_t|_F^2+\E\Lnorm{U^k_t}^2<\infty
+\qquad\text{for a.e.\ }t\in[0,T],
+\]
+that is, $\Theta^k_t\in L^2(\Omega,\F_t;\mathcal H)$ for a.e.\ $t$. Thus
+$(\Theta^k_t,\mu^k_t)\in\mathcal D_t$ for a.e.\ $t$, and Assumption~\ref{ass:lip} is
+applicable to the pair $(\Theta^1_t,\mu^1_t)$, $(\Theta^2_t,\mu^2_t)$; moreover
+$W_2(\mu^1_t,\mu^2_t)^2\le\E|\delta\Theta_t|_{\mathcal H}^2$ by \eqref{eq:coupling}.
+Hence Assumption~\ref{ass:lip} yields
+\[
+\E\big[|\delta b_t|^2+|\delta\sigma_t|_F^2+\Lnorm{\delta h_t}^2+|\delta f_t|^2\big]
+\le C\,\E|\delta\Theta_t|_{\mathcal H}^2
+\]
+for a.e.\ $t$, where $C$ is independent of $t$. Then
+\begin{equation}\label{eq:uniq-coeff}
+\E\!\int_0^T\!\big[|\delta b_t|^2+|\delta\sigma_t|_F^2+\Lnorm{\delta h_t}^2
++|\delta f_t|^2\big]\diff t<\infty .
+\end{equation}
+
+We next show that $\Theta^1-\Theta^2\in\HH$. Since the two solutions have the same
+initial condition, the forward equation is
+\[
+\delta X_t=\int_0^t\delta b_s\,\diff s+\int_0^t\delta\sigma_s\,\diff W_s
++\int_0^t\!\!\int_E\delta h_s(e)\,\Nt(\diff s,\diff e).
+\]
+By Cauchy--Schwarz, the BDG inequality and the compensation formula,
+\[
+\E\sup_{0\le t\le T}|\delta X_t|^2
+\le C_T\,\E\!\int_0^T\!\big(|\delta b_s|^2+|\delta\sigma_s|_F^2
++\Lnorm{\delta h_s}^2\big)\diff s<\infty
+\]
+by \eqref{eq:uniq-coeff}, so $\delta X\in\Ssp{\R^n}$.
+
+For the backward equation,
+\[
+\delta Y_t=\delta g_T+\int_t^T\delta f_s\,\diff s-\int_t^T\delta Z_s\,\diff W_s
+-\int_t^T\!\!\int_E\delta U_s(e)\,\Nt(\diff s,\diff e),
+\]
+where $\delta g_T:=g(X^1_T,\Law(X^1_T))-g(X^2_T,\Law(X^2_T))$. As the terminal
+conditions presuppose $\Law(X^k_T)\in\mathcal P_2(\R^n)$, we have $X^k_T\in L^2$, and
+Assumption~\ref{ass:lip} with \eqref{eq:couplingT} gives
+$\E|\delta g_T|^2\le C\,\E|\delta X_T|^2<\infty$. Furthermore, \eqref{eq:uniq-coeff}
+gives $\E\int_0^T|\delta f_s|^2\,\diff s<\infty$. By Lemma~\ref{lem:bpbsde},
+\begin{equation}\label{eq:uniq-bwd}
+\E\sup_{t\le T}|\delta Y_t|^2
+\le C_{\mathrm{BP}}\Big(\E|\delta g_T|^2+\E\!\int_0^T|\delta f_s|^2\,\diff s\Big)
+<\infty ,
+\end{equation}
+therefore $\delta Y\in\Ssp{\R^m}$. By \eqref{eq:uniq-coeff} and \eqref{eq:uniq-bwd} we
+have $\delta\Theta\in\HH$.
+
+Now apply Lemma~\ref{lem:pert} of Section~\ref{sec:wp-proof} to the two solutions at
+$\lambda=1$ with $\underline\lambda=1$, zero forcings and the same initial datum:
+the right-hand side of \eqref{eq:contpert} vanishes, so
+$\|\delta\Theta\|_{\HH}^2\le0$, whence $\Theta^1=\Theta^2$ and the uniqueness follows.
+\end{proof}
+
+\begin{remark}[Uniqueness without origin integrability]\label{rem:uniq-no-integ}
+Remark~\ref{rem:cwp-class} would place each tuple $\Theta\in\Hweak$ satisfying
+\eqref{eq:mvfbsdej} individually in $\HH$ if Assumption~\ref{ass:integ} were imposed. But the uniqueness only requires
+Assumptions~\ref{ass:lip}--\ref{ass:mono}, as we only need to show that the difference
+$\Theta^1-\Theta^2$ belongs to $\HH$, using only the Lipschitz control of coefficient
+differences. However, the existence requires Assumption~\ref{ass:integ}.
+\end{remark}
+
+\begin{theorem}[Global well-posedness]\label{thm:cwp}
+For every horizon $T>0$, under Assumptions~\ref{ass:integ}--\ref{ass:mono} the system
+\eqref{eq:mvfbsdej} admits a solution $\Theta=(X,Y,Z,U)\in\HH$, unique by
+Theorem~\ref{thm:uniq} and depending continuously on the coefficients and data in the
+sense of the estimate \eqref{eq:stab} of Theorem~\ref{thm:stab}.
+\end{theorem}
+\noindent The proof, by monotone continuation from a small-coupling base case, is in
+Section~\ref{sub:proofcwp}.
+
+\begin{corollary}[Robustness of well-posedness]\label{cor:robust}
+Let $m=n$, and let the baseline system $(b_0,\sigma_0,h_0,f_0,g)$, with the initial
+datum $\xi_0$, satisfy Assumptions~\ref{ass:integ}--\ref{ass:mono} with margin
+$c_{\mathrm{diss}}>0$ in the unweighted form \eqref{eq:monomarginu}. Let the perturbations
+$p_b,p_\sigma,p_h,p_f$ satisfy the corresponding origin-integrability and diagonal
+Lipschitz conditions of Assumptions~\ref{ass:integ}--\ref{ass:lip}, and, for some
+$c_{\mathrm{pert}}\ge0$, for a.e.\ $t\in[0,T]$ and all
+$(\Theta,\mu),(\Theta',\mu')\in\mathcal D_t$,
+\begin{multline}\label{eq:pertpair}
+\E\!\Big[\inner{\delta p_b}{\Gstar\delta Y}+\inner{\delta p_\sigma}{\Gstar\delta Z}_F
++\inner{-\delta p_f}{G\delta X}+\!\int_E\!\inner{\delta p_h(e)}{\Gstar\delta U(e)}\nu(\diff e)\Big]\\
+\le c_{\mathrm{pert}}\,\E\big[|\delta X|^2+|\delta Y|^2+|\delta Z|_F^2+\Lnorm{\delta U}^2\big]
+\end{multline}
+If
+$c_{\mathrm{pert}}<c_{\mathrm{diss}}$, the perturbed system
+\[
+(b,\sigma,h,f,g):=(b_0+p_b,\ \sigma_0+p_\sigma,\ h_0+p_h,\ f_0+p_f,\ g)
+\]
+satisfies, with the same initial datum $\xi_0$, Assumptions~\ref{ass:integ}--\ref{ass:mono}
+with the same $G,\alpha,\beta_1,\beta_2$ and margin $c_{\mathrm{diss}}-c_{\mathrm{pert}}$. By
+Theorems~\ref{thm:stab}, \ref{thm:uniq} and~\ref{thm:cwp} it is well-posed.
+
+If, in addition, the perturbations are independent of $\theta$ and $W_2$-Lipschitz,
+\begin{equation}\label{eq:pertlip}
+|\delta p_b|+|\delta p_\sigma|_F+\Lnorm{\delta p_h}+|\delta p_f|\ \le\ L_p\,W_2(\mu,\mu')
+\end{equation}
+for a.e.\ $t\in[0,T]$ and all $(\Theta,\mu),(\Theta',\mu')\in\mathcal D_t$, then
+\eqref{eq:pertpair} holds with
+$c_{\mathrm{pert}}=\|G\|L_p$.
+\end{corollary}
+\begin{proof}
+Origin values add in $L^2$ and Lipschitz constants add, so the perturbed system satisfies
+Assumptions~\ref{ass:integ}--\ref{ass:lip}; Assumption~\ref{ass:G} and the terminal
+inequality of Assumption~\ref{ass:mono} concern only $G$ and $g$, which are unchanged.
+For the interior inequality, $\delta\psi=\delta\psi_0+\delta p_\psi$,
+$\psi\in\{b,\sigma,h,f\}$, along any pair of diagonal inputs.
+The pairing splits into a baseline bracket and a perturbation bracket, bounded by
+\eqref{eq:monomarginu} and \eqref{eq:pertpair} respectively, off the union of their two
+Lebesgue-null exceptional time sets:
+\[
+\begin{aligned}
+&\E\!\Big[\inner{\delta b}{\Gstar\delta Y}+\inner{\delta\sigma}{\Gstar\delta Z}_F
++\inner{-\delta f}{G\delta X}+\!\int_E\!\inner{\delta h(e)}{\Gstar\delta U(e)}\nu(\diff e)\Big]\\
+&\quad=\E\!\Big[\inner{\delta b_0}{\Gstar\delta Y}+\inner{\delta\sigma_0}{\Gstar\delta Z}_F
++\inner{-\delta f_0}{G\delta X}+\!\int_E\!\inner{\delta h_0(e)}{\Gstar\delta U(e)}\nu(\diff e)\Big]\\
+&\qquad+\E\!\Big[\inner{\delta p_b}{\Gstar\delta Y}+\inner{\delta p_\sigma}{\Gstar\delta Z}_F
++\inner{-\delta p_f}{G\delta X}+\!\int_E\!\inner{\delta p_h(e)}{\Gstar\delta U(e)}\nu(\diff e)\Big]\\
+&\quad\le-\beta_1\E\big[|\Gstar\delta Y|^2+|\Gstar\delta Z|_F^2+\Lnorm{\Gstar\delta U}^2\big]-\beta_2\E|G\delta X|^2\\
+&\qquad-(c_{\mathrm{diss}}-c_{\mathrm{pert}})\,\E\big[|\delta Y|^2+|\delta Z|_F^2+\Lnorm{\delta U}^2+|\delta X|^2\big] ,
+\end{aligned}
+\]
+which is \eqref{eq:monomarginu} with the baseline constants and margin
+$c_{\mathrm{diss}}-c_{\mathrm{pert}}$.
+
+We now prove that \eqref{eq:pertlip} implies \eqref{eq:pertpair} with
+$c_{\mathrm{pert}}=\|G\|L_p$. Write
+\[
+D^2:=\E\big[|\delta X|^2+|\delta Y|^2+|\delta Z|_F^2+\Lnorm{\delta U}^2\big].
+\]
+The differences $\delta p_\psi$,
+$\psi\in\{b,\sigma,h,f\}$, are deterministic, so they factor out of the expectations.
+Cauchy--Schwarz in each pairing, then \eqref{eq:pertlip} and \eqref{eq:coupling}, give
+\[
+\begin{aligned}
+&\E\!\Big[\inner{\delta p_b}{\Gstar\delta Y}+\inner{\delta p_\sigma}{\Gstar\delta Z}_F
++\inner{-\delta p_f}{G\delta X}+\!\int_E\!\inner{\delta p_h(e)}{\Gstar\delta U(e)}\nu(\diff e)\Big]\\
+&\quad\le\|G\|\,D\,\bigl(|\delta p_b|+|\delta p_\sigma|_F+\Lnorm{\delta p_h}+|\delta p_f|\bigr)\\
+&\quad\le\|G\|\,D\,L_p\,W_2(\mu,\mu')\\
+&\quad\le\|G\|L_p\,D^2 ,
+\end{aligned}
+\]
+which is \eqref{eq:pertpair} with $c_{\mathrm{pert}}=\|G\|L_p$.
+\end{proof}
+\noindent The margin hypothesis is demanding in the jump channel: by the reduction of
+Remark~\ref{rem:beta1-dich}, a margin in \eqref{eq:monomarginu} forces every channel of
+the baseline to be strictly dissipative. An additive $h_0=h_0(t,x,e)$ can therefore never serve as a baseline, and
+jump feedback entering through finitely many functionals of $u$ supplies no margin
+either; a margin needs feedback dissipative on the whole of $\Lnu$, as in
+Examples~\ref{ex:concrete}(i) and~\ref{ex:dealer}.
+
+\begin{remark}[General rank]\label{rem:generalrank}
+The restriction to $m=n$ reflects only the unweighted bookkeeping: the same splitting of
+the pairing into baseline and perturbation brackets, run in the weighted quantities of
+\eqref{eq:monomargin}, gives the identical conclusion for arbitrary $m,n$ when the margin
+and \eqref{eq:pertpair} are both recorded in those quantities.
+\end{remark}
+
+\begin{proposition}[Strictness of expected diagonal monotonicity]\label{prop:strict}
+Let $n=m=1$, $d\ge1$ and $G=1$, and fix $\beta_1>0$. For every $0<\varepsilon<\beta_1$,
+the drift
+\begin{equation}\label{eq:bmean}
+b(t,\theta,\mu):=-\beta_1 y+\varepsilon\,g_0\bigl(y-m_Y(\mu)\bigr),\qquad
+g_0(r):=\max\{-1,\min\{1,r\}\},
+\end{equation}
+with $m_Y(\mu):=\int_{\mathcal H}y\,\mu(\diff\theta)$ the $Y$-marginal mean, is
+free-measure $W_2$-Lipschitz with constant $\beta_1+\varepsilon$ and satisfies, along
+all $(\Theta,\mu),(\Theta',\mu')\in\mathcal D_t$,
+\begin{equation}\label{eq:diagdrift}
+\E\inner{\delta b}{\delta Y}\ \le\ -(\beta_1-\varepsilon)\,\E|\delta Y|^2 ;
+\end{equation}
+yet for every $\beta\ge0$ the pointwise bound
+$\inner{\delta b}{\delta y}\le-\beta\,|\delta y|^2$ fails at a pair of free inputs with
+$\theta\in\operatorname{supp}\mu$ and $\theta'\in\operatorname{supp}\mu'$.
+\end{proposition}
+\begin{proof}
+\emph{Free-measure Lipschitz.} Since $g_0$ is $1$-Lipschitz and by \eqref{eq:lipfun},
+\[
+\begin{aligned}
+|\delta b|&\ \le\ \beta_1|\delta y|
++\varepsilon\bigl|\bigl(y-m_Y(\mu)\bigr)-\bigl(y'-m_Y(\mu')\bigr)\bigr|\\
+&\ \le\ \beta_1|\delta y|+\varepsilon\bigl(|\delta y|+|m_Y(\mu)-m_Y(\mu')|\bigr)\\
+&\ \le\ (\beta_1+\varepsilon)\bigl(|\delta y|+W_2(\mu,\mu')\bigr).
+\end{aligned}
+\]
+
+\emph{Expected diagonal bound.} Along diagonal inputs, $m_Y(\mu)=\E Y$ and
+$m_Y(\mu')=\E Y'$. Since $g_0$ is $1$-Lipschitz and its arguments differ by
+$(Y-\E Y)-(Y'-\E Y')=\delta Y-\E\,\delta Y$, Cauchy--Schwarz and
+$\E|\delta Y-\E\,\delta Y|^2=\E|\delta Y|^2-|\E\,\delta Y|^2\le\E|\delta Y|^2$ give
+\[
+\begin{aligned}
+\E\inner{\delta b}{\delta Y}
+&\ =\ -\beta_1\E|\delta Y|^2
++\varepsilon\,\E\bigl[\bigl(g_0(Y-\E Y)-g_0(Y'-\E Y')\bigr)\,\delta Y\bigr]\\
+&\ \le\ -\beta_1\E|\delta Y|^2
++\varepsilon\bigl(\E|\delta Y-\E\,\delta Y|^2\bigr)^{1/2}\bigl(\E|\delta Y|^2\bigr)^{1/2}\\
+&\ \le\ -(\beta_1-\varepsilon)\,\E|\delta Y|^2 ,
+\end{aligned}
+\]
+which is \eqref{eq:diagdrift}.
+
+\emph{Pointwise failure on the supports.} Take $\theta=(0,y,0,0)$ and
+$\theta'=(0,y-t,0,0)$ with $t>0$, and the two-point laws
+\[
+\mu:=\tfrac12\delta_{(0,y,0,0)}+\tfrac12\delta_{(0,y-2,0,0)},\qquad
+\mu':=\tfrac12\delta_{(0,y-t,0,0)}+\tfrac12\delta_{(0,y-t+2,0,0)},
+\]
+so that $\theta\in\operatorname{supp}\mu$, $\theta'\in\operatorname{supp}\mu'$, and
+$m_Y(\mu)=y-1$, $m_Y(\mu')=y-t+1$. The two arguments of $g_0$ are then $\pm1$, and
+\[
+\begin{aligned}
+y-m_Y(\mu)&=1, \qquad (y-t)-m_Y(\mu')=-1, \qquad \delta y=t,\\
+\delta b&=-\beta_1t+\varepsilon\bigl(g_0(1)-g_0(-1)\bigr)=-\beta_1t+2\varepsilon,\\
+\inner{\delta b}{\delta y}&=-\beta_1t^2+2\varepsilon t>0
+\qquad\text{for }0<t<2\varepsilon/\beta_1,
+\end{aligned}
+\]
+incompatible with every nonpositive bound $-\beta t^2$, $\beta\ge0$.
+\end{proof}
+

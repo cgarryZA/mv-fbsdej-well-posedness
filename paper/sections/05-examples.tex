@@ -1,0 +1,470 @@
+\section{Examples}\label{sec:examples}
+
+Theorem~\ref{thm:cwp} permits broad law dependence; the restrictive hypothesis is the
+dissipativity of Assumption~\ref{ass:mono}, which in applications is the one to verify
+and which cannot be traded for Lipschitz continuity alone. The jump system
+of~\cite[Example~3.2]{LiMin} is linear, hence Lipschitz, and is shown there to admit no
+adapted solution on the horizon $T=3\pi/4$.
+
+The examples illustrate both the scope of the law dependence and the role of the
+dissipativity assumption. Example~\ref{ex:concrete} exhibits two dissipative models
+meeting every assumption exactly, both at arbitrary jump activity: (i)~a law-free affine base,
+and (ii)~mean-field coefficients.
+Examples~\ref{ex:brownian} and~\ref{ex:expfunc} recover the Brownian~\cite{BYZ} and the
+expectation-functional~\cite{LiMin} subclasses as special cases.
+Example~\ref{ex:fulllaw} then carries the law dependence beyond those subclasses, to genuinely
+nonlinear functionals of the full tuple and of the jump integrand, and
+Example~\ref{ex:dealer}, a non-perturbative full $U$-law model, is a
+mean-field dealer market in which the law of the $\Lnu$-valued jump integrand arises as a
+population law on valuation curves and enters the jump response through a monotone
+crowding operator, so that well-posedness holds at every interaction strength.
+
+\begin{example}[Dissipative models]\label{ex:concrete}\leavevmode\par\nopagebreak
+\emph{(i) A law-free affine base.} Take
+\[
+\begin{gathered}
+n=m=d=1,\qquad G=1,\qquad \nu\ \sigma\text{-finite},\qquad
+\xi_0\in L^2(\Omega,\F_0;\R^n),\\
+\sigma_c\in\R,\qquad h_c\in\Lnu,\qquad \beta_1,\beta_2>0 .
+\end{gathered}
+\]
+Consider an agent who corrects an exogenous noise baseline through square-integrable
+predictable controls $(a^b,a^\sigma,a^h)$, the jump control $a^h$ valued in $\Lnu$,
+\[
+\diff X_t=a^b_t\,\diff t+(\sigma_c+a^\sigma_t)\,\diff W_t
++\int_E\bigl(h_c(e)+a^h_t(e)\bigr)\,\Nt(\diff t,\diff e),\qquad X_0=\xi_0,
+\]
+at quadratic cost
+\[
+\E\Big[\tfrac12|X_T|^2+\int_0^T\Big(\tfrac{\beta_2}2|X_t|^2
++\tfrac1{2\beta_1}\bigl(|a^b_t|^2+|a^\sigma_t|^2+\Lnorm{a^h_t}^2\bigr)\Big)\diff t\Big].
+\]
+The Hamiltonian
+\[
+\begin{aligned}
+H&=a^b y+(\sigma_c+a^\sigma)\,z+\int_E\bigl(h_c(e)+a^h(e)\bigr)u(e)\,\nu(\diff e)\\
+&\qquad+\tfrac{\beta_2}2|x|^2+\tfrac1{2\beta_1}\bigl(|a^b|^2+|a^\sigma|^2+\Lnorm{a^h}^2\bigr)
+\end{aligned}
+\]
+is strictly convex in the controls, with pointwise minimiser
+\[
+a^{b*}=-\beta_1 y,\qquad a^{\sigma*}=-\beta_1 z,\qquad a^{h*}(e)=-\beta_1 u(e),
+\]
+so by the stochastic maximum principle for jump diffusions~\cite{TangLi} the Pontryagin
+optimality system consists of the closed-loop state dynamics and the adjoint equation
+with driver $\partial_xH=\beta_2x$ and terminal value $X_T$; this is
+\eqref{eq:mvfbsdej} with the affine coefficients
+\[
+\begin{aligned}
+b&=-\beta_1 y, &\qquad \sigma&=\sigma_c-\beta_1 z, &\qquad h(e)&=h_c(e)-\beta_1 u(e),\\
+f&=\beta_2 x, &\qquad g(x,\rho)&=x .
+\end{aligned}
+\]
+Thus $\beta_1$ is the reciprocal of the quadratic actuation cost, $\beta_2$ the running
+state weight, the terminal weight is $1$, and $\sigma_c,h_c$ are the uncontrolled baseline.
+With these coefficients \eqref{eq:mvfbsdej} reads
+\[
+\left\{\;\begin{aligned}
+X_t&=\xi_0-\beta_1\!\int_0^t\! Y_s\,\diff s+\int_0^t\!(\sigma_c-\beta_1 Z_s)\,\diff W_s
++\int_0^t\!\!\int_E(h_c(e)-\beta_1 U_s(e))\,\Nt(\diff s,\diff e),\\
+Y_t&=X_T+\beta_2\!\int_t^T\! X_s\,\diff s-\int_t^T\! Z_s\,\diff W_s
+-\int_t^T\!\!\int_E U_s(e)\,\Nt(\diff s,\diff e).
+\end{aligned}\right.
+\]
+The coefficients are affine, hence Lipschitz, and their origin values, the constants
+$\sigma_c$ and $h_c\in\Lnu$, are square-integrable in time over the finite horizon, so
+Assumptions~\ref{ass:integ} and~\ref{ass:lip} hold with
+$L=\max\{\beta_1,\beta_2,1\}$, where the $1$ covers the terminal map $g$. The matrix $G=1$ is
+invertible, so Assumption~\ref{ass:G} holds with $c_G=1$. Since $m=n$,
+both rank branches of Assumption~\ref{ass:mono} are available.
+
+Substituting the coefficients, the interior and terminal pairings of \eqref{eq:mono} evaluate
+exactly to
+\[
+\begin{aligned}
+&\E\big[\inner{\delta b}{\delta Y}+\inner{\delta\sigma}{\delta Z}+\inner{-\delta f}{\delta X}
++\textstyle\int_E\inner{\delta h(e)}{\delta U(e)}\nu(\diff e)\big]\\
+&\qquad=-\beta_1\E\big[|\delta Y|^2+|\delta Z|_F^2+\Lnorm{\delta U}^2\big]-\beta_2\E|\delta X|^2,\\
+&\E\inner{\delta g_T}{\delta X_T}=\E|\delta X_T|^2 .
+\end{aligned}
+\]
+Assumption~\ref{ass:mono} holds with equality and $\alpha=1$, so Theorem~\ref{thm:cwp}
+yields well-posedness.
+
+The identity is sharp for the constants $\beta_1,\beta_2$, so by Remark~\ref{rem:margin} it
+carries any margin $0<c_{\mathrm{diss}}<\min\{\beta_1,\beta_2\}$, unweighted here because
+$G=1$.
+
+By Remark~\ref{rem:beta1-dich}, \emph{every} instance with $\beta_1>0$ must carry strictly
+$U$-dissipative jump feedback. The affine coefficient $h(e)=h_c(e)-\beta_1u(e)$ realises that
+dissipativity with equality,
+\[
+\int_E\inner{\delta h(e)}{\delta U(e)}\,\nu(\diff e)=-\beta_1\Lnorm{\delta U}^2 .
+\]
+
+The baseline also realises the example of Proposition~\ref{prop:strict}: replacing its
+drift $-\beta_1y$ by \eqref{eq:bmean} leaves \eqref{eq:mono} intact with constants
+$(\beta_1-\varepsilon,\beta_2)$, so Theorem~\ref{thm:cwp} continues to apply.
+
+\smallskip
+\emph{(ii) Mean-field terms at arbitrary jump activity.} Write $\theta=(x,y,z,u)$ for a point
+of $\mathcal H$ and $\pi_\Psi(\theta)$ for its component indexed by
+$\Psi\in\{X,Y,Z,U\}$. The marginal
+means of $\mu$ and the barycentre of a terminal law $\rho$ are
+\[
+m_\Psi(\mu):=\int_{\mathcal H}\pi_\Psi(\theta)\,\mu(\diff\theta),\qquad
+\mathfrak b(\rho):=\int_{\R^n}x\,\rho(\diff x) .
+\]
+Take
+\[
+\begin{aligned}
+b&=-2y-m_Y(\mu), &\qquad \sigma&=-2z-m_Z(\mu), &\qquad h(e)&=-2u(e)-m_U(\mu)(e),\\
+f&=2x+m_X(\mu), &\qquad g(x,\rho)&=2x+\mathfrak b(\rho) .
+\end{aligned}
+\]
+Keep $n=m=d=1$ and $G=1$ from (i). Set
+\[
+\delta m_\Psi:=m_\Psi(\mu)-m_\Psi(\mu'),\qquad
+\delta m:=\big(\delta m_X,\delta m_Y,\delta m_Z,\delta m_U\big)
+=\int_{\mathcal H}\theta\,\diff\mu-\int_{\mathcal H}\theta\,\diff\mu' ,
+\]
+so that $\delta m$ is a single element of $\mathcal H$.
+
+Both $\delta m$ and $\mathfrak b(\rho)$ are integrals of the identity map, which is
+$1$-Lipschitz, so \eqref{eq:lipfun} applies on $\mathcal P_2(\mathcal H)$ and on
+$\mathcal P_2(\R^n)$. Cauchy--Schwarz across the four coordinates of $\mathcal H$ then splits
+the first bound into its components:
+\[
+\begin{gathered}
+|\delta m|_{\mathcal H}\le W_2(\mu,\mu') ,\qquad
+|\mathfrak b(\rho)-\mathfrak b(\rho')|\le W_2(\rho,\rho') ,\\[1.4ex]
+|\delta m_X|+|\delta m_Y|+|\delta m_Z|_F+\Lnorm{\delta m_U}
+\le 2\,|\delta m|_{\mathcal H}\le 2\,W_2(\mu,\mu') .
+\end{gathered}
+\]
+Thus Assumption~\ref{ass:lip} holds with $L=2$. The coefficients $b,\sigma,h,f$ vanish at $(0,\delta_0)$, so Assumption~\ref{ass:integ} is
+immediate.
+
+Along a diagonal pair the measure argument is the law of the realised tuple, so
+$\E\,\delta\Psi$ is deterministic and, for $\Psi\in\{X,Y,Z,U\}$,
+\[
+m_\Psi(\Law(\Theta))=\E\Psi,\qquad
+\delta m_\Psi=\E\,\delta\Psi,\qquad
+\E\inner{\E\,\delta\Psi}{\delta\Psi}=|\E\,\delta\Psi|^2 .
+\]
+Substituting the coefficients and applying these identities, each channel contributes its own
+mean square,
+\[
+\begin{aligned}
+\E\inner{-\delta f}{\delta X}
+&=\E\inner{-2\,\delta X-\E\,\delta X}{\delta X}=-2\,\E|\delta X|^2-|\E\delta X|^2,\\
+\E\inner{\delta b}{\delta Y}
+&=\E\inner{-2\,\delta Y-\E\,\delta Y}{\delta Y}=-2\,\E|\delta Y|^2-|\E\delta Y|^2,\\
+\E\inner{\delta\sigma}{\delta Z}
+&=\E\inner{-2\,\delta Z-\E\,\delta Z}{\delta Z}=-2\,\E|\delta Z|_F^2-|\E\delta Z|_F^2,\\
+\E\!\int_E\!\inner{\delta h(e)}{\delta U(e)}\,\nu(\diff e)
+&=\E\inner{-2\,\delta U-\E\,\delta U}{\delta U}_{\Lnu}
+=-2\,\E\Lnorm{\delta U}^2-\Lnorm{\E\delta U}^2 .
+\end{aligned}
+\]
+Since the mean squares are nonnegative, summing gives the interior pairing
+\[
+\begin{aligned}
+&-2\,\E\big[|\delta X|^2+|\delta Y|^2+|\delta Z|_F^2+\Lnorm{\delta U}^2\big]\\
+&\qquad-\big(|\E\delta X|^2+|\E\delta Y|^2+|\E\delta Z|_F^2+\Lnorm{\E\delta U}^2\big)\\
+&\qquad\le-2\,\E\big[|\delta X|^2+|\delta Y|^2+|\delta Z|_F^2+\Lnorm{\delta U}^2\big]
+\end{aligned}
+\]
+and the terminal pairing
+\[
+\E\inner{\delta g_T}{\delta X_T}
+=\E\inner{2\,\delta X_T+\E\,\delta X_T}{\delta X_T}
+=2\,\E|\delta X_T|^2+|\E\delta X_T|^2
+\ge2\,\E|\delta X_T|^2 .
+\]
+Assumption~\ref{ass:mono} therefore holds with $\alpha=\beta_1=\beta_2=2$. The mean-field
+coupling costs nothing and supplies extra dissipation.
+
+These are the coefficients of~\cite[Example~3.1]{LiMin}, carried over here to an
+arbitrary $\sigma$-finite $\nu$, including $\nu(E)=\infty$: the monotonicity hypothesis of
+their well-posedness theorem~\cite[(H3.2) and Theorem~3.1]{LiMin} bounds the total mass of
+their L\'evy measure, whereas the verification above uses only $U\in\Lnu$.
+
+\end{example}
+
+\begin{example}[Brownian reduction]\label{ex:brownian}
+Remove the Poisson channel from the stochastic basis, so that the filtration is generated by
+$W$ and $\F_0$ and the representation property is the Brownian one. Delete the $U$-coordinate
+from the tuple, reducing $\mathcal H$ to $\R^n\times\R^m\times\R^{m\times d}$. Merely setting
+$h\equiv0$ on a Brownian--Poisson basis is not a reduction, since the backward Poisson integral
+and its integrand $U$ persist in the representation.
+
+The assumptions reduce to $W_2$-Lipschitz joint-law dependence of $(X,Y,Z)$ under
+$G$-monotonicity, the condition imposed in~\cite[(A1)]{BYZ} with rectangular full-rank $G$.
+With no jump channel the $U$-dissipativity constraint of
+Remark~\ref{rem:beta1-dich} is vacuous, so both rank branches of Assumption~\ref{ass:mono}
+are available.
+\end{example}
+
+\begin{example}[Expectation-functional interactions]\label{ex:expfunc}
+Let $\bar\phi:[0,T]\times\mathcal H\times\mathcal H\to\R^k$ be measurable and Lipschitz in
+$(\theta,\theta')$ uniformly in $t$, and set
+\[
+\phi(t,\theta,\mu):=\int_{\mathcal H}\bar\phi(t,\theta,\theta')\,\mu(\diff\theta') .
+\]
+At each fixed $t$ and $\theta$ this is the Bochner mean of the kernel
+$\bar\phi(t,\theta,\cdot)$, whose Lipschitz constant is at most $\mathrm{Lip}(\bar\phi)$, so
+\eqref{eq:lipfun} supplies the law-dependence component of Assumption~\ref{ass:lip}. Its
+state-variable Lipschitz and integrability requirements are imposed on the full coefficient
+system.
+
+This class contains the deterministic-coefficient, finite-activity independent-copy
+interactions of~\cite{LiMin}. Their L\'evy measure is the $\nu$ of the present setting. Let
+$\bar\psi$ be the two-point kernel of their drift, diffusion or driver, and $\bar h$ that of
+their jump coefficient. Both are assumed Lipschitz in all arguments except $t$, with
+constant uniform in $t$, and with square-integrable origin values,
+$\bar\psi(\cdot,0,\dots,0)\in L^2(0,T)$, the counterpart of the origin integrability
+imposed in~\cite[(H3.1)]{LiMin}.
+The pointwise-jump form embeds via
+\[
+\bar\phi(t,\theta,\theta')=\int_E\bar\psi\bigl(t,x,y,z,u(e),x',y',z',u'(e)\bigr)\nu(\diff e).
+\]
+The integral is finite at every $(\theta,\theta')$: the Lipschitz bound on $\bar\psi$ and
+Cauchy--Schwarz in $L^2(\nu)$ give
+$\int_E\bigl(|u(e)|+|u'(e)|\bigr)\nu(\diff e)\le\nu(E)^{1/2}\bigl(\Lnorm{u}+\Lnorm{u'}\bigr)$,
+and the origin term contributes $\nu(E)\,|\bar\psi(t,0,\dots,0)|$. The same bounds give,
+with a constant finite when $\nu(E)<\infty$,
+\[
+\begin{aligned}
+&|\bar\phi(t,\theta_1,\theta_1')-\bar\phi(t,\theta_2,\theta_2')|\\
+&\qquad\le\mathrm{Lip}(\bar\psi)\max\{\nu(E),\nu(E)^{1/2}\}
+\bigl(|\theta_1-\theta_2|_{\mathcal H}+|\theta_1'-\theta_2'|_{\mathcal H}\bigr),
+\end{aligned}
+\]
+so $\bar\phi$ is Lipschitz on $\mathcal H\times\mathcal H$. The pointwise values $u(e),u'(e)$ of the
+$L^2(\nu)$-components enter only under the $\nu$-integral, so the functional is
+well defined on equivalence classes: changing $u$ on a $\nu$-null set changes the
+integrand on a $\nu$-null set of marks.
+
+In their jump coefficient the mark $e$ is the integrator's and is not $\nu$-integrated, so
+that coefficient embeds instead through the Nemytskii map
+\[
+[\mathbf H_t(\theta,\theta')](e):=\bar h\bigl(t,x,y,z,u(e),x',y',z',u'(e),e\bigr)
+\quad\text{for $\nu$-a.e.\ }e .
+\]
+This map is again well defined on equivalence classes. Assume it jointly Borel, and impose the
+natural quantitative hypotheses
+\[
+\begin{aligned}
+\|\mathbf H_t(\theta_1,\theta_1')-\mathbf H_t(\theta_2,\theta_2')\|_{L^2(\nu)}
+&\le C(|\theta_1-\theta_2|_{\mathcal H}+|\theta_1'-\theta_2'|_{\mathcal H}),\\
+\int_0^T\|\mathbf H_t(0,0)\|_{L^2(\nu)}^2\,\diff t&<\infty ,
+\end{aligned}
+\]
+so that $\mathbf H_t$ is Lipschitz into $L^2(\nu;\R^n)$ and \eqref{eq:lipfun} applies,
+with that space in the role of $K$, to
+\[
+h(t,\theta,\mu):=\int_{\mathcal H}\mathbf H_t(\theta,\theta')\,\mu(\diff\theta') .
+\]
+\end{example}
+
+\begin{example}[Nonlinear law functionals]\label{ex:fulllaw}
+Fix
+\[
+\begin{aligned}
+\mu_0&\in\mathcal P_2(\mathcal H), &\quad \Lambda_0&\in\mathcal P_2(\Lnu),
+&\quad \varepsilon&>0,\\
+\mathfrak q,\tilde{\mathfrak q},\hat{\mathfrak q}&:\R_+\to\R, &\quad Q&:\R^J\to\R,
+&\quad \varphi_1,\dots,\varphi_J&:\Lnu\to\R,\\
+w_0,w_1&\in\R^m, &\quad v_0&\in\R^n, &\quad \hat h&\in L^2(\nu;\R^n),
+\end{aligned}
+\]
+with $\mathfrak q,\tilde{\mathfrak q},\hat{\mathfrak q},Q$ and the features $\varphi_j$ bounded and Lipschitz, and
+$w_0,w_1,v_0,\hat h$ the perturbation directions.
+
+Let the baseline generator $(b_0,\sigma_0,h_0,f_0,g)$ be as in Corollary~\ref{cor:robust}:
+$m=n$, so that the full-rank $G$ is invertible; Assumptions~\ref{ass:integ}--\ref{ass:mono}
+hold; and there is a dissipativity margin $c_{\mathrm{diss}}>0$ in the unweighted form
+\eqref{eq:monomarginu}. Example~\ref{ex:concrete}(i) supplies such a baseline. Perturb by
+\begin{align*}
+f(t,\theta,\mu)&=f_0(t,\theta)+\varepsilon\,\mathfrak q\bigl(W_2(\mu,\mu_0)\bigr)w_0
++\varepsilon\,Q\biggl(\int_{\Lnu}\varphi_1\,\diff\mu^U,\dots,\int_{\Lnu}\varphi_J\,\diff\mu^U\biggr)w_1,\\
+b(t,\theta,\mu)&=b_0(t,\theta)+\varepsilon\,\tilde{\mathfrak q}\bigl(W_2(\mu^U,\Lambda_0)\bigr)v_0,\\
+h(t,\theta,e,\mu)&=h_0(t,\theta,e)+\varepsilon\,\hat{\mathfrak q}\bigl(W_2(\mu^U,\Lambda_0)\bigr)\hat h(e) .
+\end{align*}
+The baseline is taken law-free for simplicity: a law-dependent dissipative baseline
+works identically.
+
+The law functionals are of three types:
+\begin{enumerate}[label=(\roman*)]
+\item $\mathfrak q(W_2(\mu,\mu_0))$, a nonlinear \emph{radial} statistic of the full tuple law:
+  a function of its $W_2$-distance to a fixed reference measure alone;
+\item $\tilde{\mathfrak q}(W_2(\mu^U,\Lambda_0))$ and $\hat{\mathfrak q}(W_2(\mu^U,\Lambda_0))$, the same for the
+  $U$-marginal, the latter entering the \emph{jump coefficient itself}; and
+\item the $Q$-term, a nonlinear \emph{cylindrical} functional of the $U$-marginal: finitely
+  many integrals of arbitrary bounded-Lipschitz features on the infinite-dimensional fibre
+  $\Lnu$, composed through the nonlinear $Q$.
+\end{enumerate}
+All three lie beyond the expectation and two-point-kernel jump-integrand interactions of the
+preceding examples, and beyond the linear jump-integrand expectations of the cited models. All
+are $W_2$-Lipschitz in $\mu$. The radial statistic has constant $\mathrm{Lip}(\mathfrak q)$, by the
+triangle inequality for $W_2$. The $U$-marginal statistics have constants
+$\mathrm{Lip}(\tilde{\mathfrak q})$ and $\mathrm{Lip}(\hat{\mathfrak q})$, since marginal projection is
+$1$-Lipschitz for $W_2$ by \eqref{eq:margproj}. Each cylindrical feature is the Bochner mean of
+the kernel $\theta'\mapsto\varphi_j(u')$, so \eqref{eq:lipfun} applies and the $Q$-term has
+constant
+\[
+L_Q:=\mathrm{Lip}(Q)\Bigl(\sum_{j=1}^J\mathrm{Lip}(\varphi_j)^2\Bigr)^{1/2} .
+\]
+The perturbations are bounded multiples of the fixed vectors $w_0,w_1,v_0$ and of
+$\hat h\in L^2(\nu;\R^n)$, so they satisfy the origin-integrability condition of
+Assumption~\ref{ass:integ}.
+They are independent of $\theta$ and satisfy the $W_2$-Lipschitz bound \eqref{eq:pertlip}
+with constant
+\[
+L_p:=\varepsilon\bigl(|w_0|\,\mathrm{Lip}(\mathfrak q)+|v_0|\,\mathrm{Lip}(\tilde{\mathfrak q})+|w_1|\,L_Q
++\Lnorm{\hat h}\,\mathrm{Lip}(\hat{\mathfrak q})\bigr) ,
+\]
+hence the diagonal Lipschitz condition of Assumption~\ref{ass:lip} as well.
+
+By \eqref{eq:pertlip} and Corollary~\ref{cor:robust}, \eqref{eq:pertpair} holds with
+$c_{\mathrm{pert}}=\|G\|L_p$, so the perturbed system is well-posed, with margin
+$c_{\mathrm{diss}}-\|G\|L_p$, whenever
+\begin{equation}\label{eq:fulllaw-eps}
+\varepsilon\,\|G\|\bigl(|w_0|\,\mathrm{Lip}(\mathfrak q)+|v_0|\,\mathrm{Lip}(\tilde{\mathfrak q})+|w_1|\,L_Q
++\Lnorm{\hat h}\,\mathrm{Lip}(\hat{\mathfrak q})\bigr)\ <\ c_{\mathrm{diss}} .
+\end{equation}
+The smallness in \eqref{eq:fulllaw-eps} binds the law-dependence increment alone; the
+forward--backward coupling of the baseline is unrestricted, the opposite trade to the
+weak-coupling route surveyed in the introduction.
+\end{example}
+
+\begin{example}[A non-perturbative full $U$-law model: the mean-field dealer market]\label{ex:dealer}
+Read the control problem of Example~\ref{ex:concrete}(i) as a dealer managing a one-factor
+marked-to-market exposure $X$: requests for quotes arrive as the marked points of $N$, the
+mark $e$ recording side and size, and a fill of mark $e$ moves the exposure through the
+jump channel. The Brownian term is the dealer's residual hedging risk; marking to market
+removes the common reference price from the strategic problem. The adjoint component $U_t$ is then the dealer's \emph{valuation curve}:
+$U_t(e)$ is the marginal continuation value of a fill of mark $e$, so $U_t$ is an element
+of $\Lnu$ indexed by side and size, and a population of dealers carries a law on curves,
+$\mu^U\in\mathcal P_2(\Lnu)$. Quotes are affine functions of this curve, so the
+population's quote-curve distribution is an affine image of $\mu^U$, and an anonymous
+routing mechanism that compares each dealer's curve with the population's tilts the filled
+flow by the \emph{crowding correction}
+\[
+\mathcal A_\lambda(u):=\int_{\Lnu}\nabla V(u-v)\,\lambda(\diff v),\qquad
+V(w):=\sqrt{1+\Lnorm{w}^2}-1,\qquad \lambda\in\mathcal P_2(\Lnu).
+\]
+The potential $V$ is even and convex, with
+\[
+\nabla V(w)=\frac{w}{\sqrt{1+\Lnorm{w}^2}},\qquad \Lnorm{\nabla V(w)}\le1,\qquad
+\mathrm{Lip}(\nabla V)\le1,
+\]
+the last because the second derivative of $V$ has operator norm at most one.
+Fix $\varepsilon\ge0$ and tilt the jump response of Example~\ref{ex:concrete}(i) by the
+crowding correction:
+\[
+b=-\beta_1 y,\qquad \sigma=\sigma_c-\beta_1 z,\qquad
+h=h_c-\beta_1 u-\varepsilon\,\mathcal A_{\mu^U}(u),\qquad
+f=\beta_2 x,\qquad g(x,\rho)=x ,
+\]
+with $\mu^U$ the $U$-marginal of the measure argument. At $\varepsilon=0$ this is
+Example~\ref{ex:concrete}(i) verbatim.
+
+\smallskip
+\emph{Assumptions~\ref{ass:integ}--\ref{ass:G}.} Since $\nabla V(0)=0$, the origin value
+$h(\cdot,0,\delta_0)=h_c$ is unchanged, so Assumption~\ref{ass:integ} holds as in
+Example~\ref{ex:concrete}(i). For $u,u'\in\Lnu$ and
+$\lambda,\lambda'\in\mathcal P_2(\Lnu)$, coupling $(v,v')$ optimally for
+$(\lambda,\lambda')$ and using that $\nabla V$ is $1$-Lipschitz,
+\[
+\Lnorm{\mathcal A_\lambda(u)-\mathcal A_{\lambda'}(u')}
+\ \le\ \Lnorm{u-u'}+W_2(\lambda,\lambda') ,
+\]
+and $W_2(\mu^U,\mu'^U)\le W_2(\mu,\mu')$ by \eqref{eq:margproj}, so
+Assumption~\ref{ass:lip} holds with $L=\max\{\beta_1+\varepsilon,\beta_2,1\}$: the
+interaction strength enlarges the Lipschitz constant only. Joint Lipschitz continuity of
+$(u,\lambda)\mapsto\mathcal A_\lambda(u)$ gives the Borel
+measurability~\eqref{eq:hborel}. Assumption~\ref{ass:G} holds as in
+Example~\ref{ex:concrete}(i).
+
+\smallskip
+\emph{Monotonicity at arbitrary $\varepsilon$.} Let
+$(\Theta,\mu),(\Theta',\mu')\in\mathcal D_t$; taking $U$-marginals of $\mu=\Law(\Theta)$
+and $\mu'=\Law(\Theta')$, $\mu^U=\Law(U)$ and $\mu'^U=\Law(U')$. Let
+$(\widehat U,\widehat U')$ be an independent copy of $(U,U')$: then $\widehat U$ has law
+$\mu^U$ and is independent of $(U,U')$, so
+\[
+\mathcal A_{\mu^U}(U)=\int_{\Lnu}\nabla V(U-v)\,\mu^U(\diff v)
+=\E\bigl[\nabla V(U-\widehat U)\,\big|\,U\bigr],
+\]
+and likewise for $(U',\mu'^U)$. Since
+exchanging $(U,U')$ with $(\widehat U,\widehat U')$ preserves the joint law while
+$\nabla V$ is odd,
+\[
+\begin{aligned}
+\E\inner{\mathcal A_{\mu^U}(U)-\mathcal A_{\mu'^U}(U')}{U-U'}
+&\ =\ \E\inner{\nabla V(U-\widehat U)-\nabla V(U'-\widehat U')}{U-U'}\\
+&\ =\ -\,\E\inner{\nabla V(U-\widehat U)-\nabla V(U'-\widehat U')}{\widehat U-\widehat U'} .
+\end{aligned}
+\]
+Averaging the two lines,
+\[
+\begin{aligned}
+&\E\inner{\mathcal A_{\mu^U}(U)-\mathcal A_{\mu'^U}(U')}{U-U'}\\
+&\qquad=\tfrac12\,\E\inner{\nabla V(U-\widehat U)-\nabla V(U'-\widehat U')}
+{(U-\widehat U)-(U'-\widehat U')}\ \ge\ 0,
+\end{aligned}
+\]
+the final inequality because $\nabla V$, the gradient of the convex $V$, is monotone.
+The $\varepsilon$-term therefore improves the interior pairing,
+\[
+\E\int_E\inner{\delta h(e)}{\delta U(e)}\,\nu(\diff e)\ \le\ -\beta_1\,\E\Lnorm{\delta U}^2 ,
+\]
+and \eqref{eq:mono} holds with the constants $\alpha=1,\beta_1,\beta_2$ of
+Example~\ref{ex:concrete}(i) for \emph{every} $\varepsilon\ge0$ --- no smallness
+condition and no margin. Theorem~\ref{thm:cwp} applies directly.
+
+\smallskip
+\emph{Beyond the mean.} The crowding correction is not a function of $\E[U]$: for a
+unit $w\in\Lnu$, the two-point laws $\lambda_1=\tfrac12(\delta_{-w}+\delta_{w})$ and
+$\lambda_2=\tfrac12(\delta_{-2w}+\delta_{2w})$ share their mean, yet
+\[
+\mathcal A_{\lambda_1}(w)=\tfrac{1}{\sqrt5}\,w,\qquad
+\mathcal A_{\lambda_2}(w)=\tfrac12\Bigl(\tfrac{3}{\sqrt{10}}-\tfrac1{\sqrt2}\Bigr)w .
+\]
+
+\smallskip
+\emph{Marks and activity.} Take $E=\{-1,+1\}\times(0,1]$, writing $e=(\varsigma,q)$ for
+side $\varsigma$ and size $q$, with
+$\nu(\diff\varsigma,\diff q)=c_\varsigma\,q^{-1-\varrho}\,\diff q$ for constants
+$c_\varsigma>0$ and $0<\varrho<2$: then $\nu(E)=\infty$ while
+$\int_E q^2\,\nu(\diff\varsigma,\diff q)<\infty$, so $h_c(\varsigma,q):=\varsigma q$ lies
+in $\Lnu$ --- infinitely many small tickets with square-integrable aggregate exposure. In
+this model the infinite-activity regime is the market's small-ticket limit.
+
+The finite-player inspiration is the dealer market of Cont and
+Xiong~\cite{ContXiong}, in which dealers' execution probabilities depend on their own
+and competing quotes; the present example is a stylised mean-field model inspired by that
+setting.
+\end{example}
+
+\begin{remark}[Scope of the measure argument]\label{rem:freelaw}
+The proofs consume the tuple law through a single mechanism: the $W_2$ term of
+Assumption~\ref{ass:lip}, dominated at every use by the synchronous coupling
+bound~\eqref{eq:coupling}. The right-hand side of \eqref{eq:coupling} carries
+$\E\Lnorm{\delta U}^2$ whether or not the measure argument reads the $U$-marginal,
+because the coefficients depend on $u$ pointwise --- a dependence
+Remark~\ref{rem:beta1-dich} makes unavoidable whenever $\beta_1>0$. Nothing is therefore gained by restricting the
+coefficients to the $(X,Y,Z)$-marginal law: with the coupling bound taken in
+$\mathcal H$, the estimates close at the full tuple law, and Example~\ref{ex:dealer}
+exhibits that scope arising from a routing mechanism rather than by construction.
+\end{remark}
+
+\begin{remark}[Perturbative and non-perturbative law dependence]\label{rem:regimes}
+Example~\ref{ex:fulllaw} shows that arbitrary nonlinear full-tuple law dependence can be
+added when it is smaller than the dissipativity margin. Example~\ref{ex:dealer} shows
+that a genuinely nonlinear $U$-law interaction can have arbitrary strength when its
+geometry is itself monotone.
+\end{remark}
+

@@ -1,0 +1,124 @@
+\section{Introduction}
+
+We prove existence, uniqueness, and stability, on every fixed finite horizon $T$ and
+with no smallness restriction, for the fully coupled
+McKean--Vlasov forward--backward system with jumps
+\begin{equation}\label{eq:mvfbsdej}
+\PaperSystemBox{\left\{\;\begin{aligned}
+X_t&=\xi_0+\int_0^t b(s,\Theta_s,\mu_s)\,\diff s+\int_0^t\sigma(s,\Theta_s,\mu_s)\,\diff W_s
+  +\int_0^t\!\!\int_E h(s,\Theta_{s}^-,e,\mu_s^-)\,\Nt(\diff s,\diff e),\\[9pt]
+Y_t&=g(X_T,\Law(X_T))+\int_t^T f(s,\Theta_s,\mu_s)\,\diff s
+  -\int_t^T Z_s\,\diff W_s-\int_t^T\!\!\int_E U_s(e)\,\Nt(\diff s,\diff e),
+\end{aligned}\right.}
+\end{equation}
+driven by a Brownian motion $W$ and an independent compensated Poisson random measure
+$\Nt$. The intensity $\nu$ is assumed only $\sigma$-finite: infinite jump
+activity, $\nu(E)=\infty$, is admitted. The state space is the
+Hilbert space
+\[
+\mathcal H:=\R^n\times\R^m\times\R^{m\times d}\times L^2(\nu;\R^m),
+\]
+carrying the norm
+\[
+|\theta|_{\mathcal H}^2:=|x|^2+|y|^2+|z|_F^2+\Lnorm{u}^2,\qquad \theta=(x,y,z,u),
+\]
+where $|\cdot|$ is the Euclidean norm (on any $\R^j$) and the Frobenius and
+$L^2(\nu;\R^m)$ norms are
+\[
+|z|_F^2:=\sum_{i,j}z_{ij}^2,
+\qquad
+\Lnorm{u}^2:=\int_E|u(e)|^2\,\nu(\diff e);
+\]
+$L^2(\nu;\R^m)$ is henceforth abbreviated $\Lnu$.
+
+We seek a solution tuple
+\[
+\Theta_t=(X_t,Y_t,Z_t,U_t);
+\]
+the jump coefficient is evaluated at the predictable version
+$\Theta_t^-:=(X_{t-},Y_{t-},Z_t,U_t)$, which takes left limits in the forward and backward
+states ($Z,U$ are already predictable). The coefficients are evaluated along the joint-law flows
+\[
+\mu_t=\Law(\Theta_t),\qquad \mu_t^-:=\Law(\Theta_t^-)\in\mathcal P_2(\mathcal H).
+\]
+The distinguishing feature is the law argument:
+the coefficients are Lipschitz in the quadratic Wasserstein distance $W_2$
+on $\mathcal P_2(\mathcal H)$, so the law of the $\Lnu$-valued jump integrand $U$ itself
+may enter the coefficients; both the Lipschitz and the monotonicity hypotheses are
+imposed only along the solution's own tuple--law pairs $(\Theta,\Law(\Theta))$.
+
+This class
+of equations is motivated by the optimality systems of mean-field games and mean-field
+control problems with jumps, where the law argument is typically the state or control law,
+and by their numerical analysis: the a~posteriori error estimates of Reisinger, Stockinger
+and Zhang~\cite{RSZ} for Brownian MV-FBSDEs rest on the Brownian case of the monotonicity
+hypothesis used below, and carrying them to jumps needs the well-posedness theory proved
+here.
+
+The primary comparison is the theorem of Li and Min~\cite{LiMin}: global well-posedness
+for fully coupled mean-field FBSDEs with jumps, proved by continuation under a
+jump-extended $G$-monotonicity condition~\cite[(H3.2)]{LiMin}. Their mean-field
+interaction is of expectation-functional (independent-copy) type, their jump integrand
+enters only through its pointwise values, and their monotonicity hypothesis imposes
+finite total jump mass; the present theorem removes all three restrictions, allowing
+$W_2$-dependence on the full tuple law, the law of $U$ included, at arbitrary
+$\sigma$-finite activity, under the expected $G$-monotonicity condition set out
+below. Example~\ref{ex:expfunc} details the embedding of their interaction class.
+
+For Brownian noise, well-posedness of fully coupled mean-field FBSDEs under joint-law
+dependence has been studied by Bensoussan, Yam and Zhang~\cite{BYZ}, Chen and
+Nie~\cite{ChenNie} and
+others~\cite{CarmonaDelarueFBSDE,ChenNieWang,HuaLuo,MinPengQin,TianYu,WuHao,ZhangHuang}
+under various monotonicity and weak-coupling assumptions. All of these are Brownian: no
+jump channel, no integrand $U$.
+
+With jumps but no mean-field coupling, fully coupled FBSDEs are well posed over arbitrary
+horizons by the same monotone-continuation method: Wu~\cite{WuFBSDEP} for the
+Brownian--Poisson case, and domination-monotonicity continuation carried to the
+L\'evy-driven case by Xu, Tang and Meng~\cite{XuTangMeng}. For jump \emph{mean-field}
+systems in decoupled form, the well-posedness and regularity theory is due to
+Li~\cite{LiSPA18}. Neither setting addresses the fully coupled problem with full-tuple
+law dependence.
+
+Further fully coupled jump mean-field results trade scope for other restrictions.
+Matoussi, Manai and Salhi~\cite{MMS} treat $W_2$-dependence on the $(X,Y)$-marginal law
+at finite activity, under monotonicity hypotheses and explicit size restrictions on the
+Lipschitz constants.
+Chen, Shi and Wu~\cite{ChenShiWu} work on an arbitrary fixed horizon in the weakly
+coupled regime, where quantitative weak coupling replaces the structural dissipativity
+used here. Liu and Zhang~\cite{LiuZhang} allow pointwise dependence on $Y,Z$ but take the
+measure argument to be $\Law(X)$, on a small time interval and under finite jump
+activity. In a control direction, mean-field-type control driven by jump-diffusions is
+solved globally in time by Bensoussan, Huang, Tang and Yam~\cite{BHTY}, with state-law
+dependence and finite total jump mass.
+
+Assumption~\ref{ass:mono} below adjoins a jump term to the monotonicity hypothesis
+of~\cite[(H.1)(1)]{RSZ}, posed there, as in the condition~\cite[(A1)]{BYZ}, on the joint
+law of $(X,Y,Z)$ with a rectangular full-rank $G$. The measure argument is correspondingly the joint law of the full tuple
+$(X,Y,Z,U)$, so the law of the $\Lnu$-valued jump integrand may enter the coefficients, and
+$\nu$ is $\sigma$-finite, infinite activity included.
+
+The works surveyed above are each restricted
+on at least one of the three axes (measure argument, jump activity, coupling strength). We
+prove well-posedness under the stated $L^2$ and monotonicity assumptions by global-in-time
+monotone continuation; concretely:
+\begin{enumerate}[label=(\roman*)]
+\item an a~priori stability estimate: the full difference of two solutions is
+  controlled by the differences of their coefficients and data (Theorem~\ref{thm:stab});
+\item uniqueness in the natural class (Theorem~\ref{thm:uniq});
+\item global existence by monotone continuation from a small-coupling base case
+  (Theorem~\ref{thm:cwp});
+\item robustness: well-posedness survives full-tuple-law perturbations below the
+  dissipativity margin at equal forward and backward dimension
+  (Corollary~\ref{cor:robust}; Remark~\ref{rem:generalrank} for general rank); and
+\item strictness: expected diagonal monotonicity is strictly weaker than its pointwise
+  form (Proposition~\ref{prop:strict}).
+\end{enumerate}
+
+The paper is organised as follows. Section~\ref{sec:main-assumptions} sets out the model
+and its assumptions. Section~\ref{sec:main} states the main results.
+Section~\ref{sec:wp-proof} carries out the continuation proof.
+Section~\ref{sec:examples} develops the examples. Section~\ref{sec:conclusion} concludes
+and identifies open extensions.
+Appendix~\ref{app:lawflow} constructs the Borel law flow used throughout.
+

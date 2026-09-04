@@ -1,0 +1,26 @@
+paper/*.pdf
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/*.bbl
+paper/*.blg
+paper/*.toc
+
+Paper*.zip
+
+REVIEW-DIFF *.pdf
+literature/
+references/
+
+paper/review/
+paper/*.spl
+_flatcheck/
+_chk/
+_av/
+_arx*/
+submissions/*-source/
+__pycache__/
+*.py[cod]
